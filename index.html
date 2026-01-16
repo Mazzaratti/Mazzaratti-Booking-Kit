@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mazzaratti — Booking Kit</title>
+  <title>Mazzaratti - Booking Kit</title>
   <meta name="description" content="Mobile booking kit: videos, song list, and contact in one place." />
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon-192.png">
@@ -42,9 +42,9 @@
   <div class="wrap">
     <div class="card">
       <h1 id="bandName">Mazzaratti</h1>
-      <div class="tag" id="tagline">Timeless Rock • Pop • Country</div>
+      <div class="tag" id="tagline">Timeless Rock / Pop / Country</div>
       <p class="muted" id="oneLiner" style="margin:10px 0 0">
-        High-energy cover band built to keep people in the room and buying drinks.
+        Playing The Songs That People Forgot They Loved!.
       </p>
 
       <div class="row" style="margin-top:12px">
@@ -55,7 +55,7 @@
       </div>
 
       <div class="muted" style="margin-top:10px">
-        Booking contact: <span id="contactName">Your Name</span> • <span id="contactPhone">(555) 555-5555</span> • <span id="contactEmail">you@email.com</span>
+        Booking contact: <span id="contactName">Your Name</span> â€¢ <span id="contactPhone">(555) 555-5555</span> â€¢ <span id="contactEmail">you@email.com</span>
       </div>
     </div>
 
@@ -74,7 +74,7 @@
 
     <div class="card">
       <h2>Song List</h2>
-      <input id="songSearch" placeholder="Search (artist, title, genre)…" autocomplete="off" />
+      <input id="songSearch" placeholder="Search (artist, title, genre)â€¦" autocomplete="off" />
       <div id="songResults"></div>
       <div class="muted" id="songCount" style="margin-top:8px"></div>
     </div>
@@ -115,7 +115,7 @@
     // ====== CONFIG (edit these) ======
     const CONFIG = {
       bandName: "Mazzaratti",
-      tagline: "Timeless Rock • Pop • Country",
+      tagline: "Timeless Rock â€¢ Pop â€¢ Country",
       oneLiner: "High-energy cover band built to keep people in the room and buying drinks.",
       contactName: "Booking Contact",
       phone: "5555555555",
@@ -126,7 +126,7 @@
         instagram: "https://www.instagram.com/yourband"
       },
       proofBullets: [
-        "3–4 sets, flexible volume, clean breaks and fast changeovers.",
+        "3â€“4 sets, flexible volume, clean breaks and fast changeovers.",
         "Great for bars, festivals, private parties, and events.",
         "We promote each show and share venue posts.",
         "Reliable, easy to work with, professional setup/teardown."
@@ -137,10 +137,10 @@
         { label: "Crowd Moment",        url: "https://youtu.be/yourclip3" }
       ],
       songs: [
-        { title:"Don’t You (Forget About Me)", artist:"Simple Minds", genre:"Rock" },
-        { title:"Sweet Child O’ Mine", artist:"Guns N’ Roses", genre:"Rock" },
+        { title:"Donâ€™t You (Forget About Me)", artist:"Simple Minds", genre:"Rock" },
+        { title:"Sweet Child Oâ€™ Mine", artist:"Guns Nâ€™ Roses", genre:"Rock" },
         { title:"Wagon Wheel", artist:"Darius Rucker", genre:"Country" },
-        { title:"Don’t Stop Believin’", artist:"Journey", genre:"Rock" },
+        { title:"Donâ€™t Stop Believinâ€™", artist:"Journey", genre:"Rock" },
         { title:"Uptown Funk", artist:"Bruno Mars", genre:"Pop" }
       ]
     };
@@ -163,8 +163,8 @@
     $("saveBtn").addEventListener("click", (e) => {
       e.preventDefault();
       const link = location.href;
-      const subject = `${CONFIG.bandName} — Booking Kit Link`;
-      const body = `Here’s the booking kit link:\n\n${link}\n\nContact: ${CONFIG.contactName} • ${formatPhone(CONFIG.phone)} • ${CONFIG.email}\n`;
+      const subject = `${CONFIG.bandName} â€” Booking Kit Link`;
+      const body = `Hereâ€™s the booking kit link:\n\n${link}\n\nContact: ${CONFIG.contactName} â€¢ ${formatPhone(CONFIG.phone)} â€¢ ${CONFIG.email}\n`;
       location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
 
@@ -195,11 +195,11 @@
     // Request a date (mailto)
     $("requestBtn").addEventListener("click", (e) => {
       e.preventDefault();
-      const subject = `${CONFIG.bandName} — Booking Request`;
+      const subject = `${CONFIG.bandName} â€” Booking Request`;
       const body =
 `Hi ${CONFIG.contactName},
 
-We’d love to play your venue. Here are a few dates we’re available:
+Weâ€™d love to play your venue. Here are a few dates weâ€™re available:
 - (date 1)
 - (date 2)
 - (date 3)
@@ -242,7 +242,7 @@ Thanks!
       list.forEach(s => {
         const div = document.createElement("div");
         div.className = "song";
-        div.innerHTML = `<b>${escapeHtml(s.title)}</b><span class="muted">${escapeHtml(s.artist)} • ${escapeHtml(s.genre)}</span>`;
+        div.innerHTML = `<b>${escapeHtml(s.title)}</b><span class="muted">${escapeHtml(s.artist)} â€¢ ${escapeHtml(s.genre)}</span>`;
         results.appendChild(div);
       });
       count.textContent = `${list.length} songs shown`;
@@ -284,3 +284,4 @@ Thanks!
   </script>
 </body>
 </html>
+
