@@ -26,6 +26,7 @@
     h1{font-size:1.6rem;margin:0 0 4px}
     h2{font-size:1.1rem;margin:0 0 10px}
     .tag{display:inline-block;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.85rem}
+
     .list{margin:0;padding-left:18px}
     input{width:100%;padding:12px 12px;border-radius:12px;border:1px solid var(--line);background:#0f0f14;color:var(--text)}
     .song{padding:10px 10px;border:1px solid var(--line);border-radius:12px;margin:8px 0;background:#0f0f14}
@@ -35,17 +36,25 @@
     .footer{position:fixed;left:0;right:0;bottom:0;background:rgba(11,11,13,.92);backdrop-filter:blur(10px);
             border-top:1px solid var(--line);padding:10px 14px}
     .footer .wrap{padding:0;max-width:720px}
+
+    /* Logo */
+    .logo-wrap{display:flex;justify-content:flex-start;margin-bottom:6px}
+    .band-logo{max-width:260px;width:100%;height:auto;display:block}
   </style>
 </head>
 
 <body>
   <div class="wrap">
     <div class="card">
+
+      <!-- LOGO (replaces the text title) -->
       <div class="logo-wrap">
-        <img src="/assets/logo_sm.png" alt="Mazzaratti" class="band-logo">
+        <!-- If your logo is in /assets, keep this path. If it's in root, change to "logo.png" -->
+        <img src="assets/Mazzaratti-Logo.png" alt="Mazzaratti" class="band-logo">
       </div>
 
       <div class="tag" id="tagline">Timeless Rock / Pop / Country</div>
+
       <p class="muted" id="oneLiner" style="margin:10px 0 0">
         Playing The Songs That People Forgot They Loved!
       </p>
@@ -112,6 +121,7 @@
         <a class="btn small" id="shareBtn" href="#">Share</a>
         <a class="btn small" id="copyLinkBtn" href="#">Copy link</a>
         <a class="btn small" id="fbBtn" href="#" target="_blank" rel="noreferrer">Facebook</a>
+        <!-- Instagram is optional; remove this button if you don't use it -->
         <a class="btn small" id="igBtn" href="#" target="_blank" rel="noreferrer">Instagram</a>
       </div>
     </div>
@@ -129,7 +139,7 @@
       location: "SE Wisconsin",
       socials: {
         facebook: "https://www.facebook.com/mazzarattiband",
-        instagram: "https://www.instagram.com/yourband"
+        instagram: "" // leave blank if you don't have one
       },
       proofBullets: [
         "2–3 sets, flexible volume, clean breaks and fast changeovers.",
@@ -154,8 +164,7 @@
     // ====== DOM HELPER ======
     const $ = (id) => document.getElementById(id);
 
-    // ====== RENDER HEADER ======
-    $("bandName").textContent = CONFIG.bandName;
+    // ====== RENDER TEXT FIELDS ======
     $("tagline").textContent = CONFIG.tagline;
     $("oneLiner").textContent = CONFIG.oneLiner;
     $("contactName").textContent = CONFIG.contactName;
@@ -167,7 +176,7 @@
     $("textBtn").href  = `sms:${CONFIG.phone}`;
     $("emailBtn").href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(`${CONFIG.bandName} Booking Inquiry`)}`;
 
-    // Save-to-self email (guarded)
+    // Save-to-self email
     const saveBtn = $("saveBtn");
     if (saveBtn) {
       saveBtn.addEventListener("click", (e) => {
@@ -205,12 +214,22 @@ Contact: ${CONFIG.contactName} • ${formatPhone(CONFIG.phone)} • ${CONFIG.ema
       vwrap.appendChild(a);
     });
 
-    // Socials (guarded)
+    // Socials
     const fbBtn = $("fbBtn");
-    if (fbBtn && CONFIG.socials.facebook) fbBtn.href = CONFIG.socials.facebook;
+    if (fbBtn && CONFIG.socials.facebook) {
+      fbBtn.href = CONFIG.socials.facebook;
+      fbBtn.style.display = "inline-flex";
+    } else if (fbBtn) {
+      fbBtn.style.display = "none";
+    }
 
     const igBtn = $("igBtn");
-    if (igBtn && CONFIG.socials.instagram) igBtn.href = CONFIG.socials.instagram;
+    if (igBtn && CONFIG.socials.instagram) {
+      igBtn.href = CONFIG.socials.instagram;
+      igBtn.style.display = "inline-flex";
+    } else if (igBtn) {
+      igBtn.style.display = "none";
+    }
 
     // Request a date (mailto)
     $("requestBtn").addEventListener("click", (e) => {
@@ -233,7 +252,7 @@ Thanks!
       location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
 
-    // Share / copy link (guarded)
+    // Share / copy link
     const shareBtn = $("shareBtn");
     if (shareBtn) {
       shareBtn.addEventListener("click", async (e) => {
@@ -322,6 +341,3 @@ Thanks!
   </script>
 </body>
 </html>
-
-
-
