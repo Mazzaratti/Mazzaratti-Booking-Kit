@@ -51,11 +51,14 @@
         <a class="btn primary" id="callBtn" href="#">Call</a>
         <a class="btn" id="textBtn" href="#">Text</a>
         <a class="btn" id="emailBtn" href="#">Email</a>
-       
+        <a class="btn" id="saveBtn" href="#">Send to myself</a>
       </div>
 
       <div class="muted" style="margin-top:10px">
-        Booking contact: <span id="contactName">Tom</span> • <span id="contactPhone">(555) 555-5555</span> • <span id="contactEmail">mazzarattiband@gmail.com</span>
+        Booking contact:
+        <span id="contactName">Tom</span> •
+        <span id="contactPhone">(555) 555-5555</span> •
+        <span id="contactEmail">mazzarattiband@gmail.com</span>
       </div>
     </div>
 
@@ -106,6 +109,7 @@
         <a class="btn small" id="shareBtn" href="#">Share</a>
         <a class="btn small" id="copyLinkBtn" href="#">Copy link</a>
         <a class="btn small" id="fbBtn" href="#" target="_blank" rel="noreferrer">Facebook</a>
+        <a class="btn small" id="igBtn" href="#" target="_blank" rel="noreferrer">Instagram</a>
       </div>
     </div>
   </div>
@@ -122,10 +126,10 @@
       location: "SE Wisconsin",
       socials: {
         facebook: "https://www.facebook.com/mazzarattiband",
-        
+        instagram: "https://www.instagram.com/yourband"
       },
       proofBullets: [
-        "2-3 sets, flexible volume, clean breaks and fast changeovers.",
+        "2–3 sets, flexible volume, clean breaks and fast changeovers.",
         "Great for bars, festivals, private parties, and events.",
         "We promote each show and share venue posts.",
         "Reliable, easy to work with, professional setup/teardown."
@@ -144,8 +148,10 @@
       ]
     };
 
-    // ====== RENDER HEADER ======
+    // ====== DOM HELPER ======
     const $ = (id) => document.getElementById(id);
+
+    // ====== RENDER HEADER ======
     $("bandName").textContent = CONFIG.bandName;
     $("tagline").textContent = CONFIG.tagline;
     $("oneLiner").textContent = CONFIG.oneLiner;
@@ -158,14 +164,23 @@
     $("textBtn").href  = `sms:${CONFIG.phone}`;
     $("emailBtn").href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(`${CONFIG.bandName} Booking Inquiry`)}`;
 
-    // Save-to-self email
-    $("saveBtn").addEventListener("click", (e) => {
-      e.preventDefault();
-      const link = location.href;
-      const subject = `${CONFIG.bandName} — Booking Kit Link`;
-      const body = `Here’s the booking kit link:\n\n${link}\n\nContact: ${CONFIG.contactName} • ${formatPhone(CONFIG.phone)} • ${CONFIG.email}\n`;
-      location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    });
+    // Save-to-self email (guarded)
+    const saveBtn = $("saveBtn");
+    if (saveBtn) {
+      saveBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const link = location.href;
+        const subject = `${CONFIG.bandName} — Booking Kit Link`;
+        const body =
+`Here’s the booking kit link:
+
+${link}
+
+Contact: ${CONFIG.contactName} • ${formatPhone(CONFIG.phone)} • ${CONFIG.email}
+`;
+        location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      });
+    }
 
     // Proof bullets
     const ul = $("proofBullets");
@@ -187,9 +202,12 @@
       vwrap.appendChild(a);
     });
 
-    // Socials
-    $("fbBtn").href = CONFIG.socials.facebook;
-    $("igBtn").href = CONFIG.socials.instagram;
+    // Socials (guarded)
+    const fbBtn = $("fbBtn");
+    if (fbBtn && CONFIG.socials.facebook) fbBtn.href = CONFIG.socials.facebook;
+
+    const igBtn = $("igBtn");
+    if (igBtn && CONFIG.socials.instagram) igBtn.href = CONFIG.socials.instagram;
 
     // Request a date (mailto)
     $("requestBtn").addEventListener("click", (e) => {
@@ -212,23 +230,33 @@ Thanks!
       location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
 
-    // Share / copy link
-    $("shareBtn").addEventListener("click", async (e) => {
-      e.preventDefault();
-      const shareData = { title: `${CONFIG.bandName} Booking Kit`, text: "Videos, song list, and booking contact:", url: location.href };
-      if (navigator.share) {
-        try { await navigator.share(shareData); } catch {}
-      } else {
+    // Share / copy link (guarded)
+    const shareBtn = $("shareBtn");
+    if (shareBtn) {
+      shareBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        const shareData = {
+          title: `${CONFIG.bandName} Booking Kit`,
+          text: "Videos, song list, and booking contact:",
+          url: location.href
+        };
+        if (navigator.share) {
+          try { await navigator.share(shareData); } catch {}
+        } else {
+          await copyText(location.href);
+          alert("Link copied.");
+        }
+      });
+    }
+
+    const copyLinkBtn = $("copyLinkBtn");
+    if (copyLinkBtn) {
+      copyLinkBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
         await copyText(location.href);
         alert("Link copied.");
-      }
-    });
-
-    $("copyLinkBtn").addEventListener("click", async (e) => {
-      e.preventDefault();
-      await copyText(location.href);
-      alert("Link copied.");
-    });
+      });
+    }
 
     // Songs search
     const allSongs = CONFIG.songs.slice();
@@ -261,7 +289,9 @@ Thanks!
 
     // PWA service worker
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => navigator.serviceWorker.register("./sw.js").catch(()=>{}));
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch(()=>{});
+      });
     }
 
     // Helpers
@@ -270,24 +300,22 @@ Thanks!
       if (s.length !== 10) return digits;
       return `(${s.slice(0,3)}) ${s.slice(3,6)}-${s.slice(6)}`;
     }
+
     async function copyText(text){
       if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(text);
       const ta = document.createElement("textarea");
-      ta.value = text; document.body.appendChild(ta);
-      ta.select(); document.execCommand("copy");
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
       document.body.removeChild(ta);
     }
+
     function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+      return String(str).replace(/[&<>"']/g, m => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+      }[m]));
     }
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
