@@ -382,11 +382,11 @@ Thanks!
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeBio(); });
 
     // PWA service worker (optional)
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").catch(()=>{});
-      });
-    }
+    //if ("serviceWorker" in navigator) {
+    //  window.addEventListener("load", () => {
+    //    navigator.serviceWorker.register("./sw.js").catch(()=>{});
+    //  });
+   // }
 
     // Helpers
     function formatPhone(digits){
@@ -413,6 +413,7 @@ Thanks!
   </script>
 </body>
 </html>
+
 
 
 
