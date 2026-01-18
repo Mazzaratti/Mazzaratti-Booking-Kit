@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"> 
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -105,12 +105,12 @@
 
       <!-- LOGO -->
       <div class="logo-wrap">
-        <img src="Assets/LOGO_SM.png" alt="Mazzaratti" class="band-logo">
+        <img src="./Assets/LOGO_SM.png" alt="Mazzaratti" class="band-logo">
       </div>
-       <div class="tag" id="tagline">Playing The Songs That People Forgot They Loved!</div>
-      <p class="muted" id="oneLiner" style="margin:10px 0 0">
-        
-      </p>
+
+      <div class="tag" id="tagline">Playing The Songs That People Forgot They Loved!</div>
+
+      <p class="muted" id="oneLiner" style="margin:10px 0 0"></p>
 
       <div class="row" style="margin-top:12px">
         <a class="btn primary" id="callBtn" href="#">Call</a>
@@ -146,14 +146,14 @@
     <div class="card">
       <h2>Photos</h2>
       <div class="grid" id="photoGrid">
-        <a class="photo-tile" href="Assets/Live.jpg" target="_blank" rel="noreferrer">
-          <img src="Assets/Live.jpg" alt="Live show photo">
+        <a class="photo-tile" href="./Assets/Live.jpg" target="_blank" rel="noreferrer">
+          <img src="./Assets/Live.jpg" alt="Live show photo">
         </a>
-        <a class="photo-tile" href="Assets/Table.jpg" target="_blank" rel="noreferrer">
-          <img src="Assets/Table.jpg" alt="Band at table photo">
+        <a class="photo-tile" href="./Assets/Table.jpg" target="_blank" rel="noreferrer">
+          <img src="./Assets/Table.jpg" alt="Band at table photo">
         </a>
-        <a class="photo-tile" href="Assets/Team.jpg" target="_blank" rel="noreferrer">
-          <img src="Assets/Team.jpg" alt="Band team photo">
+        <a class="photo-tile" href="./Assets/Team.jpg" target="_blank" rel="noreferrer">
+          <img src="./Assets/Team.jpg" alt="Band team photo">
         </a>
       </div>
       <p class="muted" style="margin:10px 0 0">
@@ -193,13 +193,13 @@
   </div>
 
   <script>
-    // ====== CONFIG (edit these) ======
+    // =========================
+    // CONFIG
+    // =========================
     const CONFIG = {
       bandName: "Mazzaratti",
       tagline: "Playing The Songs That People Forgot They Loved!",
       oneLiner: "",
-      contactName: "Tom",
-      phone: "(414) 870-0554",
       email: "mazzarattirocks@gmail.com",
       socials: {
         facebook: "https://www.facebook.com/mazzarattiband",
@@ -219,8 +219,8 @@ We love what we do, and we love sharing it with all of you. The energy, the musi
       ],
       videos: [
         { label: "60sec Highlight Clip", url: "https://youtu.be/yourclip1" },
-        { label: "Full Song Live",     url: "https://youtu.be/yourclip2" },
-        { label: "Crowd Moment",       url: "https://youtu.be/yourclip3" }
+        { label: "Full Song Live",      url: "https://youtu.be/yourclip2" },
+        { label: "Crowd Moment",        url: "https://youtu.be/yourclip3" }
       ],
       songs: [
         { title:"Don’t You (Forget About Me)", artist:"Simple Minds", genre:"Rock" },
@@ -228,30 +228,82 @@ We love what we do, and we love sharing it with all of you. The energy, the musi
         { title:"Gunpowder & Lead", artist:"Miranda Lambert", genre:"Country" },
         { title:"Separate Ways", artist:"Journey", genre:"Rock" },
         { title:"Pink Pony Club", artist:"Chappell Roan", genre:"Pop" }
-      ]
+      ],
+
+      // Default contact if no rep is specified in the URL:
+      defaultRep: "Tom",
+
+      // Put each member’s phone here (digits-only is best).
+      // Example link you’ll generate/QR:
+      //   https://YOURPAGESURL/?rep=Lisa
+      // or override phone ad-hoc:
+      //   https://YOURPAGESURL/?rep=Lisa&phone=2625551212
+      reps: {
+        "Tom": { phone: "4148700554" },
+        "Lisa": { phone: "8155491632" },
+        "Dave": { phone: "2628937301" },
+        "DvO": { phone: "4143793045" },
+        "Don": { phone: "4144036714 }
+      }
     };
 
-    // ====== DOM HELPER ======
+    // =========================
+    // URL REP OVERRIDE
+    // =========================
+    const params = new URLSearchParams(window.location.search);
+
+    // rep can be:
+    // - a key in CONFIG.reps (Tom/Lisa/Dave/DvO/Don)
+    // - or any custom name (rep=Someone) — phone can be provided too.
+    const repParam = (params.get("rep") || "").trim();
+    const phoneParam = (params.get("phone") || "").trim(); // optional override
+    const emailParam = (params.get("email") || "").trim(); // optional override
+
+    // Determine rep name
+    const repName = repParam || CONFIG.defaultRep;
+
+    // Determine rep phone:
+    // 1) phone= in URL (if valid)
+    // 2) phone from CONFIG.reps[repName]
+    // 3) fallback to default rep phone
+    const repRecord = CONFIG.reps[repName] || null;
+    const defaultRecord = CONFIG.reps[CONFIG.defaultRep] || { phone: "" };
+
+    let repPhone = (repRecord && repRecord.phone) ? repRecord.phone : defaultRecord.phone;
+
+    if (phoneParam) {
+      const digits = phoneParam.replace(/\D/g, "");
+      if (digits.length === 10) repPhone = digits;
+    }
+
+    // Optional: allow email override via URL, otherwise use CONFIG.email
+    const repEmail = emailParam || CONFIG.email;
+
+    // =========================
+    // DOM HELPERS
+    // =========================
     const $ = (id) => document.getElementById(id);
 
-    // Render text
+    // Render top text
     $("tagline").textContent = CONFIG.tagline;
     $("oneLiner").textContent = CONFIG.oneLiner;
-    $("contactName").textContent = CONFIG.contactName;
+
+    // Contact name
+    $("contactName").textContent = repName;
 
     // Clickable phone + email in the contact line
     const phoneEl = $("contactPhone");
-    phoneEl.textContent = formatPhone(CONFIG.phone);
-    phoneEl.href = `tel:${CONFIG.phone}`;
+    phoneEl.textContent = formatPhone(repPhone);
+    phoneEl.href = `tel:${repPhone}`;
 
     const emailEl = $("contactEmail");
-    emailEl.textContent = CONFIG.email;
-    emailEl.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(CONFIG.bandName + " Booking Inquiry")}`;
+    emailEl.textContent = repEmail;
+    emailEl.href = `mailto:${repEmail}?subject=${encodeURIComponent(CONFIG.bandName + " Booking Inquiry")}`;
 
-    // Header buttons
-    $("callBtn").href  = `tel:${CONFIG.phone}`;
-    $("textBtn").href  = `sms:${CONFIG.phone}`;
-    $("emailBtn").href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(CONFIG.bandName + " Booking Inquiry")}`;
+    // Header buttons (use REP phone/email)
+    $("callBtn").href  = `tel:${repPhone}`;
+    $("textBtn").href  = `sms:${repPhone}`;
+    $("emailBtn").href = `mailto:${repEmail}?subject=${encodeURIComponent(CONFIG.bandName + " Booking Inquiry")}`;
 
     // Quick Info bullets
     const ul = $("proofBullets");
@@ -290,12 +342,12 @@ We love what we do, and we love sharing it with all of you. The energy, the musi
       igBtn.style.display = "none";
     }
 
-    // Request a date (venue fills in dates)
+    // Request a date (emails the band; template includes which rep shared the kit)
     $("requestBtn").addEventListener("click", (e) => {
       e.preventDefault();
       const subject = `${CONFIG.bandName} — Booking Request`;
       const body =
-`Hi ${CONFIG.contactName},
+`Hi ${CONFIG.bandName},
 
 I’m interested in booking ${CONFIG.bandName} for our venue. Here are a few dates I’m considering:
 
@@ -310,9 +362,11 @@ Preferred start time:
 Load-in time:
 Any sound/volume notes:
 
+Shared by: ${repName} (${formatPhone(repPhone)})
+
 Thanks!
 `;
-      location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      location.href = `mailto:${repEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
 
     // Share / Copy
@@ -322,7 +376,7 @@ Thanks!
         e.preventDefault();
         const shareData = {
           title: `${CONFIG.bandName} Booking Kit`,
-          text: "Videos, song list, and booking contact:",
+          text: `Videos, song list, and booking contact (${repName}):`,
           url: location.href
         };
         if (navigator.share) {
@@ -346,7 +400,6 @@ Thanks!
     // Song list (NO SEARCH)
     const results = $("songResults");
     const count = $("songCount");
-
     function renderSongs(list) {
       results.innerHTML = "";
       list.forEach(s => {
@@ -364,7 +417,6 @@ Thanks!
     const bioBtn = $("bioBtn");
     const bioCloseBtn = $("bioCloseBtn");
     const bioText = $("bioText");
-
     bioText.textContent = CONFIG.bio || "Bio coming soon.";
 
     function openBio(){
@@ -375,18 +427,17 @@ Thanks!
       bioModal.classList.remove("show");
       bioModal.setAttribute("aria-hidden", "true");
     }
-
     bioBtn.addEventListener("click", (e) => { e.preventDefault(); openBio(); });
     bioCloseBtn.addEventListener("click", (e) => { e.preventDefault(); closeBio(); });
     bioModal.addEventListener("click", (e) => { if (e.target === bioModal) closeBio(); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeBio(); });
 
-    // PWA service worker (optional)
-    //if ("serviceWorker" in navigator) {
-    //  window.addEventListener("load", () => {
-    //    navigator.serviceWorker.register("./sw.js").catch(()=>{});
-    //  });
-   // }
+    // PWA service worker (optional) — keep OFF if you’re fighting iPhone caching
+    // if ("serviceWorker" in navigator) {
+    //   window.addEventListener("load", () => {
+    //     navigator.serviceWorker.register("./sw.js").catch(()=>{});
+    //   });
+    // }
 
     // Helpers
     function formatPhone(digits){
@@ -413,9 +464,3 @@ Thanks!
   </script>
 </body>
 </html>
-
-
-
-
-
-
