@@ -38,12 +38,7 @@
     .footer .wrap{padding:0;max-width:720px}
 
     /* Logo */
-    .logo-wrap{
-  display:flex;
-  justify-content:center;
-  margin-bottom:6px;
-}
-
+    .logo-wrap{display:flex;justify-content:center;margin-bottom:6px}
     .band-logo{max-width:260px;width:100%;height:auto;display:block}
 
     /* Photos */
@@ -69,6 +64,38 @@
       text-underline-offset: 2px;
     }
     .inline-link:hover{opacity:.9}
+
+    /* Modal */
+    .modal{
+      position:fixed; inset:0;
+      background:rgba(0,0,0,.6);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      z-index:9999;
+    }
+    .modal.show{display:flex}
+    .modal-card{
+      width:min(720px, 100%);
+      max-height:80vh;
+      overflow:auto;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px;
+    }
+    .modal-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+    .modal-body{
+      white-space:pre-wrap;
+      line-height:1.45;
+    }
   </style>
 </head>
 
@@ -91,7 +118,7 @@
         <a class="btn primary" id="callBtn" href="#">Call</a>
         <a class="btn" id="textBtn" href="#">Text</a>
         <a class="btn" id="emailBtn" href="#">Email</a>
-        
+        <a class="btn" id="bioBtn" href="#">Band Bio</a>
       </div>
 
       <div class="muted" style="margin-top:10px">
@@ -110,9 +137,6 @@
     <div class="card">
       <h2>Videos</h2>
       <div id="videoLinks" class="row"></div>
-      <p class="muted" style="margin:10px 0 0">
-     
-      </p>
     </div>
 
     <div class="card">
@@ -142,9 +166,20 @@
     <div class="card">
       <h2>Request a Date</h2>
       <p class="muted" style="margin-top:0">
-        Tap below to email a booking request with your available dates/time.
+        Tap below to email a booking request with your preferred dates/time.
       </p>
       <a class="btn primary" id="requestBtn" href="#">Request a date</a>
+    </div>
+  </div>
+
+  <!-- BIO MODAL -->
+  <div id="bioModal" class="modal" aria-hidden="true">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="bioTitle">
+      <div class="modal-head">
+        <h2 id="bioTitle" style="margin:0">Band Bio</h2>
+        <a href="#" class="btn small" id="bioCloseBtn">Close</a>
+      </div>
+      <div class="modal-body muted" id="bioText"></div>
     </div>
   </div>
 
@@ -172,6 +207,11 @@
         facebook: "https://www.facebook.com/mazzarattiband",
         instagram: "" // leave blank if you don't have one
       },
+      bio: `Mazzaratti is all about helping you remember the songs you forgot you loved! Since 2020, we’ve been delivering high-energy performances across the greater Milwaukee area, keeping crowds dancing with an electrifying mix of classic rock, pop, alternative, country, and today’s biggest hits.
+
+Fronted by a powerhouse female vocalist and backed by a group of seasoned musicians, we bring a dynamic and engaging stage presence that makes every show unforgettable. Whether we’re rocking a packed club, lighting up a festival, or playing your favorite local venue, we thrive on creating a fun, high-energy atmosphere that keeps you coming back for more.
+
+We love what we do, and we love sharing it with all of you. The energy, the music, and the connection we build with our fans make every performance something special. Thank you for being a part of our journey—we can’t wait to see you at the next show!`,
       proofBullets: [
         "Up to 3 hours of Classic Rock, New Wave, 80s, 90s, Country, Pop.",
         "Crowd Participation Games - ROCK-Artist-BINGO.",
@@ -215,25 +255,7 @@
     $("textBtn").href  = `sms:${CONFIG.phone}`;
     $("emailBtn").href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(CONFIG.bandName + " Booking Inquiry")}`;
 
-    // Save-to-self
-    const saveBtn = $("saveBtn");
-    if (saveBtn) {
-      saveBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        const link = location.href;
-        const subject = `${CONFIG.bandName} — Booking Kit Link`;
-        const body =
-`Here’s the booking kit link:
-
-${link}
-
-Contact: ${CONFIG.contactName} • ${formatPhone(CONFIG.phone)} • ${CONFIG.email}
-`;
-        location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      });
-    }
-
-    // Quick Proof bullets
+    // Quick Info bullets
     const ul = $("proofBullets");
     CONFIG.proofBullets.forEach(t => {
       const li = document.createElement("li");
@@ -270,21 +292,23 @@ Contact: ${CONFIG.contactName} • ${formatPhone(CONFIG.phone)} • ${CONFIG.ema
       igBtn.style.display = "none";
     }
 
-    // Request a date
+    // Request a date (venue fills in dates)
     $("requestBtn").addEventListener("click", (e) => {
       e.preventDefault();
       const subject = `${CONFIG.bandName} — Booking Request`;
       const body =
 `Hi ${CONFIG.contactName},
 
-I’m interested in booking Mazzaratti for our venue. Here are a few dates I’m considering:
+I’m interested in booking ${CONFIG.bandName} for our venue. Here are a few dates I’m considering:
 
 - (date 1)
 - (date 2)
 - (date 3)
 
 Venue name:
-Start time:
+Contact name:
+Phone:
+Preferred start time:
 Load-in time:
 Any sound/volume notes:
 
@@ -335,8 +359,29 @@ Thanks!
       });
       count.textContent = `${list.length} songs`;
     }
-
     renderSongs(CONFIG.songs);
+
+    // Band Bio modal
+    const bioModal = $("bioModal");
+    const bioBtn = $("bioBtn");
+    const bioCloseBtn = $("bioCloseBtn");
+    const bioText = $("bioText");
+
+    bioText.textContent = CONFIG.bio || "Bio coming soon.";
+
+    function openBio(){
+      bioModal.classList.add("show");
+      bioModal.setAttribute("aria-hidden", "false");
+    }
+    function closeBio(){
+      bioModal.classList.remove("show");
+      bioModal.setAttribute("aria-hidden", "true");
+    }
+
+    bioBtn.addEventListener("click", (e) => { e.preventDefault(); openBio(); });
+    bioCloseBtn.addEventListener("click", (e) => { e.preventDefault(); closeBio(); });
+    bioModal.addEventListener("click", (e) => { if (e.target === bioModal) closeBio(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeBio(); });
 
     // PWA service worker (optional)
     if ("serviceWorker" in navigator) {
@@ -370,12 +415,3 @@ Thanks!
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
