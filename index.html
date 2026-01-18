@@ -102,14 +102,11 @@
 <body>
   <div class="wrap">
     <div class="card">
-
-      <!-- LOGO -->
       <div class="logo-wrap">
         <img src="./Assets/LOGO_SM.png" alt="Mazzaratti" class="band-logo">
       </div>
 
       <div class="tag" id="tagline">Playing The Songs That People Forgot They Loved!</div>
-
       <p class="muted" id="oneLiner" style="margin:10px 0 0"></p>
 
       <div class="row" style="margin-top:12px">
@@ -156,16 +153,12 @@
           <img src="./Assets/Team.jpg" alt="Band team photo">
         </a>
       </div>
-      <p class="muted" style="margin:10px 0 0">
-        Tap any photo to open full size.
-      </p>
+      <p class="muted" style="margin:10px 0 0">Tap any photo to open full size.</p>
     </div>
 
     <div class="card">
       <h2>Request a Date</h2>
-      <p class="muted" style="margin-top:0">
-        Tap below to email a booking request with your preferred dates/time.
-      </p>
+      <p class="muted" style="margin-top:0">Tap below to email a booking request with your preferred dates/time.</p>
       <a class="btn primary" id="requestBtn" href="#">Request a date</a>
     </div>
   </div>
@@ -193,9 +186,6 @@
   </div>
 
   <script>
-    // =========================
-    // CONFIG
-    // =========================
     const CONFIG = {
       bandName: "Mazzaratti",
       tagline: "Playing The Songs That People Forgot They Loved!",
@@ -203,13 +193,13 @@
       email: "mazzarattirocks@gmail.com",
       socials: {
         facebook: "https://www.facebook.com/mazzarattiband",
-        instagram: "" // leave blank if you don't have one
+        instagram: ""
       },
-      bio: `Mazzaratti is all about helping you remember the songs you forgot you loved! Since 2020, we’ve been delivering high-energy performances across the greater Milwaukee area, keeping crowds dancing with an electrifying mix of classic rock, pop, alternative, country, and today’s biggest hits.
+      bio:
+        "Mazzaratti is all about helping you remember the songs you forgot you loved! Since 2020, we’ve been delivering high-energy performances across the greater Milwaukee area, keeping crowds dancing with an electrifying mix of classic rock, pop, alternative, country, and today’s biggest hits.\n\n" +
+        "Fronted by a powerhouse female vocalist and backed by a group of seasoned musicians, we bring a dynamic and engaging stage presence that makes every show unforgettable. Whether we’re rocking a packed club, lighting up a festival, or playing your favorite local venue, we thrive on creating a fun, high-energy atmosphere that keeps you coming back for more.\n\n" +
+        "We love what we do, and we love sharing it with all of you. The energy, the music, and the connection we build with our fans make every performance something special. Thank you for being a part of our journey—we can’t wait to see you at the next show!",
 
-Fronted by a powerhouse female vocalist and backed by a group of seasoned musicians, we bring a dynamic and engaging stage presence that makes every show unforgettable. Whether we’re rocking a packed club, lighting up a festival, or playing your favorite local venue, we thrive on creating a fun, high-energy atmosphere that keeps you coming back for more.
-
-We love what we do, and we love sharing it with all of you. The energy, the music, and the connection we build with our fans make every performance something special. Thank you for being a part of our journey—we can’t wait to see you at the next show!`,
       proofBullets: [
         "Up to 3 hours of Classic Rock, New Wave, 80s, 90s, Country, Pop.",
         "Crowd Participation Games - ROCK-Artist-BINGO.",
@@ -230,216 +220,19 @@ We love what we do, and we love sharing it with all of you. The energy, the musi
         { title:"Pink Pony Club", artist:"Chappell Roan", genre:"Pop" }
       ],
 
-      // Default contact if no rep is specified in the URL:
       defaultRep: "Tom",
-
-      // Put each member’s phone here (digits-only is best).
-      // Example link you’ll generate/QR:
-      //   https://YOURPAGESURL/?rep=Lisa
-      // or override phone ad-hoc:
-      //   https://YOURPAGESURL/?rep=Lisa&phone=2625551212
       reps: {
         "Tom": { phone: "4148700554" },
-        "Lisa": { phone: "8155491632" },
-        "Dave": { phone: "2628937301" },
-        "DvO": { phone: "4143793045" },
-        "Don": { phone: "4144036714 }
+        "Lisa": { phone: "0000000000" },
+        "Dave": { phone: "0000000000" },
+        "DvO": { phone: "0000000000" },
+        "Don": { phone: "0000000000" }
       }
     };
 
-    // =========================
-    // URL REP OVERRIDE
-    // =========================
-    const params = new URLSearchParams(window.location.search);
-
-    // rep can be:
-    // - a key in CONFIG.reps (Tom/Lisa/Dave/DvO/Don)
-    // - or any custom name (rep=Someone) — phone can be provided too.
-    const repParam = (params.get("rep") || "").trim();
-    const phoneParam = (params.get("phone") || "").trim(); // optional override
-    const emailParam = (params.get("email") || "").trim(); // optional override
-
-    // Determine rep name
-    const repName = repParam || CONFIG.defaultRep;
-
-    // Determine rep phone:
-    // 1) phone= in URL (if valid)
-    // 2) phone from CONFIG.reps[repName]
-    // 3) fallback to default rep phone
-    const repRecord = CONFIG.reps[repName] || null;
-    const defaultRecord = CONFIG.reps[CONFIG.defaultRep] || { phone: "" };
-
-    let repPhone = (repRecord && repRecord.phone) ? repRecord.phone : defaultRecord.phone;
-
-    if (phoneParam) {
-      const digits = phoneParam.replace(/\D/g, "");
-      if (digits.length === 10) repPhone = digits;
-    }
-
-    // Optional: allow email override via URL, otherwise use CONFIG.email
-    const repEmail = emailParam || CONFIG.email;
-
-    // =========================
-    // DOM HELPERS
-    // =========================
+    // Helpers
     const $ = (id) => document.getElementById(id);
 
-    // Render top text
-    $("tagline").textContent = CONFIG.tagline;
-    $("oneLiner").textContent = CONFIG.oneLiner;
-
-    // Contact name
-    $("contactName").textContent = repName;
-
-    // Clickable phone + email in the contact line
-    const phoneEl = $("contactPhone");
-    phoneEl.textContent = formatPhone(repPhone);
-    phoneEl.href = `tel:${repPhone}`;
-
-    const emailEl = $("contactEmail");
-    emailEl.textContent = repEmail;
-    emailEl.href = `mailto:${repEmail}?subject=${encodeURIComponent(CONFIG.bandName + " Booking Inquiry")}`;
-
-    // Header buttons (use REP phone/email)
-    $("callBtn").href  = `tel:${repPhone}`;
-    $("textBtn").href  = `sms:${repPhone}`;
-    $("emailBtn").href = `mailto:${repEmail}?subject=${encodeURIComponent(CONFIG.bandName + " Booking Inquiry")}`;
-
-    // Quick Info bullets
-    const ul = $("proofBullets");
-    CONFIG.proofBullets.forEach(t => {
-      const li = document.createElement("li");
-      li.textContent = t;
-      ul.appendChild(li);
-    });
-
-    // Videos
-    const vwrap = $("videoLinks");
-    CONFIG.videos.forEach(v => {
-      const a = document.createElement("a");
-      a.className = "btn";
-      a.href = v.url;
-      a.target = "_blank";
-      a.rel = "noreferrer";
-      a.textContent = v.label;
-      vwrap.appendChild(a);
-    });
-
-    // Social buttons
-    const fbBtn = $("fbBtn");
-    if (fbBtn && CONFIG.socials.facebook) {
-      fbBtn.href = CONFIG.socials.facebook;
-      fbBtn.style.display = "inline-flex";
-    } else if (fbBtn) {
-      fbBtn.style.display = "none";
-    }
-
-    const igBtn = $("igBtn");
-    if (igBtn && CONFIG.socials.instagram) {
-      igBtn.href = CONFIG.socials.instagram;
-      igBtn.style.display = "inline-flex";
-    } else if (igBtn) {
-      igBtn.style.display = "none";
-    }
-
-    // Request a date (emails the band; template includes which rep shared the kit)
-    $("requestBtn").addEventListener("click", (e) => {
-      e.preventDefault();
-      const subject = `${CONFIG.bandName} — Booking Request`;
-      const body =
-`Hi ${CONFIG.bandName},
-
-I’m interested in booking ${CONFIG.bandName} for our venue. Here are a few dates I’m considering:
-
-- (date 1)
-- (date 2)
-- (date 3)
-
-Venue name:
-Contact name:
-Phone:
-Preferred start time:
-Load-in time:
-Any sound/volume notes:
-
-Shared by: ${repName} (${formatPhone(repPhone)})
-
-Thanks!
-`;
-      location.href = `mailto:${repEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    });
-
-    // Share / Copy
-    const shareBtn = $("shareBtn");
-    if (shareBtn) {
-      shareBtn.addEventListener("click", async (e) => {
-        e.preventDefault();
-        const shareData = {
-          title: `${CONFIG.bandName} Booking Kit`,
-          text: `Videos, song list, and booking contact (${repName}):`,
-          url: location.href
-        };
-        if (navigator.share) {
-          try { await navigator.share(shareData); } catch {}
-        } else {
-          await copyText(location.href);
-          alert("Link copied.");
-        }
-      });
-    }
-
-    const copyLinkBtn = $("copyLinkBtn");
-    if (copyLinkBtn) {
-      copyLinkBtn.addEventListener("click", async (e) => {
-        e.preventDefault();
-        await copyText(location.href);
-        alert("Link copied.");
-      });
-    }
-
-    // Song list (NO SEARCH)
-    const results = $("songResults");
-    const count = $("songCount");
-    function renderSongs(list) {
-      results.innerHTML = "";
-      list.forEach(s => {
-        const div = document.createElement("div");
-        div.className = "song";
-        div.innerHTML = `<b>${escapeHtml(s.title)}</b><span class="muted">${escapeHtml(s.artist)} • ${escapeHtml(s.genre)}</span>`;
-        results.appendChild(div);
-      });
-      count.textContent = `${list.length} songs`;
-    }
-    renderSongs(CONFIG.songs);
-
-    // Band Bio modal
-    const bioModal = $("bioModal");
-    const bioBtn = $("bioBtn");
-    const bioCloseBtn = $("bioCloseBtn");
-    const bioText = $("bioText");
-    bioText.textContent = CONFIG.bio || "Bio coming soon.";
-
-    function openBio(){
-      bioModal.classList.add("show");
-      bioModal.setAttribute("aria-hidden", "false");
-    }
-    function closeBio(){
-      bioModal.classList.remove("show");
-      bioModal.setAttribute("aria-hidden", "true");
-    }
-    bioBtn.addEventListener("click", (e) => { e.preventDefault(); openBio(); });
-    bioCloseBtn.addEventListener("click", (e) => { e.preventDefault(); closeBio(); });
-    bioModal.addEventListener("click", (e) => { if (e.target === bioModal) closeBio(); });
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeBio(); });
-
-    // PWA service worker (optional) — keep OFF if you’re fighting iPhone caching
-    // if ("serviceWorker" in navigator) {
-    //   window.addEventListener("load", () => {
-    //     navigator.serviceWorker.register("./sw.js").catch(()=>{});
-    //   });
-    // }
-
-    // Helpers
     function formatPhone(digits){
       const s = (digits || "").replace(/\D/g,"");
       if (s.length !== 10) return digits;
@@ -461,6 +254,212 @@ Thanks!
         '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
       }[m]));
     }
+
+    function init(){
+      try {
+        // --- REP OVERRIDE VIA URL ---
+        const params = new URLSearchParams(window.location.search);
+        const repParam = (params.get("rep") || "").trim();
+        const phoneParam = (params.get("phone") || "").trim();
+        const emailParam = (params.get("email") || "").trim();
+
+        const repName = repParam || CONFIG.defaultRep;
+
+        const repRecord = CONFIG.reps[repName] || null;
+        const defaultRecord = CONFIG.reps[CONFIG.defaultRep] || { phone: "" };
+
+        let repPhone = (repRecord && repRecord.phone) ? repRecord.phone : defaultRecord.phone;
+
+        if (phoneParam) {
+          const digits = phoneParam.replace(/\D/g, "");
+          if (digits.length === 10) repPhone = digits;
+        }
+
+        const repEmail = emailParam || CONFIG.email;
+
+        // --- Render top text ---
+        const taglineEl = $("tagline");
+        const oneLinerEl = $("oneLiner");
+        if (taglineEl) taglineEl.textContent = CONFIG.tagline;
+        if (oneLinerEl) oneLinerEl.textContent = CONFIG.oneLiner;
+
+        const contactNameEl = $("contactName");
+        if (contactNameEl) contactNameEl.textContent = repName;
+
+        // Phone + email line
+        const phoneEl = $("contactPhone");
+        if (phoneEl) {
+          phoneEl.textContent = formatPhone(repPhone);
+          phoneEl.href = `tel:${repPhone}`;
+        }
+
+        const emailEl = $("contactEmail");
+        if (emailEl) {
+          emailEl.textContent = repEmail;
+          emailEl.href = `mailto:${repEmail}?subject=${encodeURIComponent(CONFIG.bandName + " Booking Inquiry")}`;
+        }
+
+        // Header buttons
+        const callBtn = $("callBtn");
+        const textBtn = $("textBtn");
+        const emailBtn = $("emailBtn");
+        if (callBtn) callBtn.href = `tel:${repPhone}`;
+        if (textBtn) textBtn.href = `sms:${repPhone}`;
+        if (emailBtn) emailBtn.href = `mailto:${repEmail}?subject=${encodeURIComponent(CONFIG.bandName + " Booking Inquiry")}`;
+
+        // Quick Info bullets
+        const ul = $("proofBullets");
+        if (ul) {
+          ul.innerHTML = "";
+          CONFIG.proofBullets.forEach(t => {
+            const li = document.createElement("li");
+            li.textContent = t;
+            ul.appendChild(li);
+          });
+        }
+
+        // Videos
+        const vwrap = $("videoLinks");
+        if (vwrap) {
+          vwrap.innerHTML = "";
+          CONFIG.videos.forEach(v => {
+            const a = document.createElement("a");
+            a.className = "btn";
+            a.href = v.url;
+            a.target = "_blank";
+            a.rel = "noreferrer";
+            a.textContent = v.label;
+            vwrap.appendChild(a);
+          });
+        }
+
+        // Social buttons
+        const fbBtn = $("fbBtn");
+        if (fbBtn && CONFIG.socials.facebook) {
+          fbBtn.href = CONFIG.socials.facebook;
+          fbBtn.style.display = "inline-flex";
+        } else if (fbBtn) {
+          fbBtn.style.display = "none";
+        }
+
+        const igBtn = $("igBtn");
+        if (igBtn && CONFIG.socials.instagram) {
+          igBtn.href = CONFIG.socials.instagram;
+          igBtn.style.display = "inline-flex";
+        } else if (igBtn) {
+          igBtn.style.display = "none";
+        }
+
+        // Request a date
+        const requestBtn = $("requestBtn");
+        if (requestBtn) {
+          requestBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const subject = `${CONFIG.bandName} — Booking Request`;
+            const body =
+`Hi ${CONFIG.bandName},
+
+I’m interested in booking ${CONFIG.bandName} for our venue. Here are a few dates I’m considering:
+
+- (date 1)
+- (date 2)
+- (date 3)
+
+Venue name:
+Contact name:
+Phone:
+Preferred start time:
+Load-in time:
+Any sound/volume notes:
+
+Shared by: ${repName} (${formatPhone(repPhone)})
+
+Thanks!
+`;
+            location.href = `mailto:${repEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          });
+        }
+
+        // Share / Copy
+        const shareBtn = $("shareBtn");
+        if (shareBtn) {
+          shareBtn.addEventListener("click", async (e) => {
+            e.preventDefault();
+            const shareData = {
+              title: `${CONFIG.bandName} Booking Kit`,
+              text: `Videos, song list, and booking contact (${repName}):`,
+              url: location.href
+            };
+            if (navigator.share) {
+              try { await navigator.share(shareData); } catch {}
+            } else {
+              await copyText(location.href);
+              alert("Link copied.");
+            }
+          });
+        }
+
+        const copyLinkBtn = $("copyLinkBtn");
+        if (copyLinkBtn) {
+          copyLinkBtn.addEventListener("click", async (e) => {
+            e.preventDefault();
+            await copyText(location.href);
+            alert("Link copied.");
+          });
+        }
+
+        // Songs
+        const results = $("songResults");
+        const count = $("songCount");
+        if (results) {
+          results.innerHTML = "";
+          CONFIG.songs.forEach(s => {
+            const div = document.createElement("div");
+            div.className = "song";
+            div.innerHTML = `<b>${escapeHtml(s.title)}</b><span class="muted">${escapeHtml(s.artist)} • ${escapeHtml(s.genre)}</span>`;
+            results.appendChild(div);
+          });
+        }
+        if (count) count.textContent = `${CONFIG.songs.length} songs`;
+
+        // Bio modal
+        const bioModal = $("bioModal");
+        const bioBtn = $("bioBtn");
+        const bioCloseBtn = $("bioCloseBtn");
+        const bioText = $("bioText");
+        if (bioText) bioText.textContent = CONFIG.bio || "Bio coming soon.";
+
+        function openBio(){
+          if (!bioModal) return;
+          bioModal.classList.add("show");
+          bioModal.setAttribute("aria-hidden", "false");
+        }
+        function closeBio(){
+          if (!bioModal) return;
+          bioModal.classList.remove("show");
+          bioModal.setAttribute("aria-hidden", "true");
+        }
+
+        if (bioBtn) bioBtn.addEventListener("click", (e) => { e.preventDefault(); openBio(); });
+        if (bioCloseBtn) bioCloseBtn.addEventListener("click", (e) => { e.preventDefault(); closeBio(); });
+        if (bioModal) bioModal.addEventListener("click", (e) => { if (e.target === bioModal) closeBio(); });
+        document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeBio(); });
+
+        // Service worker OFF while iterating (prevents iPhone caching headaches)
+        // if ("serviceWorker" in navigator) {
+        //   window.addEventListener("load", () => {
+        //     navigator.serviceWorker.register("./sw.js").catch(()=>{});
+        //   });
+        // }
+      } catch (err) {
+        console.error("Init error:", err);
+        // If something goes wrong, at least show *something*:
+        const ul = $("proofBullets");
+        if (ul) ul.innerHTML = "<li>Setup error: open console for details.</li>";
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", init);
   </script>
 </body>
 </html>
