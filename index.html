@@ -38,11 +38,7 @@
     .footer .wrap{padding:0;max-width:720px}
 
     /* Logo */
-    .logo-wrap{
-      display:flex;
-      justify-content:center;
-      margin-bottom:6px
-    }
+    .logo-wrap{display:flex;justify-content:center;margin-bottom:6px}
     .band-logo{max-width:260px;width:100%;height:auto;display:block}
 
     /* Photos */
@@ -201,11 +197,18 @@
       tagline: "Playing The Songs That People Forgot They Loved!",
       oneLiner: "",
       contactName: "Tom",
-      phone: "(414) 870-0554",
+      phone: "4148700554", // digits only
       email: "mazzarattirocks@gmail.com",
       socials: {
         facebook: "https://www.facebook.com/mazzarattiband",
         instagram: "" // leave blank if you don't have one
+      },
+      reps: {
+        "Tom":  { phone: "4148700554" },
+        "Lisa": { phone: "8155491632" },
+        "Dave": { phone: "2628937301" },
+        "DvO":  { phone: "4143793045" },
+        "Don":  { phone: "4144036714" }
       },
       bio: `Mazzaratti is all about helping you remember the songs you forgot you loved! Since 2020, we’ve been delivering high-energy performances across the greater Milwaukee area, keeping crowds dancing with an electrifying mix of classic rock, pop, alternative, country, and today’s biggest hits.
 
@@ -235,6 +238,15 @@ We love what we do, and we love sharing it with all of you. The energy, the musi
 
     // ====== DOM HELPER ======
     const $ = (id) => document.getElementById(id);
+
+    // ====== APPLY REP FROM URL (rep=Tom|Lisa|Dave|DvO|Don) ======
+    const params = new URLSearchParams(window.location.search);
+    const rep = (params.get("rep") || "").trim();
+
+    if (rep && CONFIG.reps[rep]) {
+      CONFIG.contactName = rep;
+      CONFIG.phone = CONFIG.reps[rep].phone;
+    }
 
     // Render text
     $("tagline").textContent = CONFIG.tagline;
@@ -312,6 +324,8 @@ Preferred start time:
 Load-in time:
 Any sound/volume notes:
 
+Rep who shared this kit: ${CONFIG.contactName} (${formatPhone(CONFIG.phone)})
+
 Thanks!
 `;
       location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -383,7 +397,7 @@ Thanks!
     bioModal.addEventListener("click", (e) => { if (e.target === bioModal) closeBio(); });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeBio(); });
 
-    // PWA service worker (optional)
+    // PWA service worker (optional) - kept OFF to avoid iPhone caching issues
     //if ("serviceWorker" in navigator) {
     //  window.addEventListener("load", () => {
     //    navigator.serviceWorker.register("./sw.js").catch(()=>{});
