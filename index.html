@@ -17,29 +17,48 @@
     .wrap{max-width:720px;margin:0 auto;padding:18px 14px 80px}
     .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:12px 0}
     .row{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
-         padding:12px 12px;border-radius:12px;border:1px solid var(--line);
-         background:#101015;text-decoration:none;font-weight:600;min-width:120px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:12px 12px;border-radius:12px;border:1px solid var(--line);
+      background:#101015;text-decoration:none;font-weight:600;min-width:120px
+    }
     .btn.primary{background:var(--accent);color:#041006;border-color:transparent}
     .btn.small{padding:10px 10px;min-width:auto}
     .muted{color:var(--muted);font-size:.95rem;line-height:1.35}
     h1{font-size:1.6rem;margin:0 0 4px}
     h2{font-size:1.1rem;margin:0 0 10px}
     .tag{display:inline-block;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.85rem}
-
     .list{margin:0;padding-left:18px}
     input{width:100%;padding:12px 12px;border-radius:12px;border:1px solid var(--line);background:#0f0f14;color:var(--text)}
     .song{padding:10px 10px;border:1px solid var(--line);border-radius:12px;margin:8px 0;background:#0f0f14}
     .song b{display:block}
     .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-    .ph{aspect-ratio:1/1;border-radius:12px;border:1px solid var(--line);background:#0f0f14;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.85rem}
-    .footer{position:fixed;left:0;right:0;bottom:0;background:rgba(11,11,13,.92);backdrop-filter:blur(10px);
-            border-top:1px solid var(--line);padding:10px 14px}
+    .footer{
+      position:fixed;left:0;right:0;bottom:0;background:rgba(11,11,13,.92);
+      backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 14px
+    }
     .footer .wrap{padding:0;max-width:720px}
 
     /* Logo */
     .logo-wrap{display:flex;justify-content:flex-start;margin-bottom:6px}
     .band-logo{max-width:260px;width:100%;height:auto;display:block}
+
+    /* Photos */
+    .photo-tile{
+      position:relative;
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:#0f0f14;
+      display:block;
+    }
+    .photo-tile img{
+      width:100%;
+      height:100%;
+      display:block;
+      aspect-ratio:1/1;
+      object-fit:cover;
+    }
   </style>
 </head>
 
@@ -47,9 +66,8 @@
   <div class="wrap">
     <div class="card">
 
-      <!-- LOGO (replaces the text title) -->
+      <!-- LOGO -->
       <div class="logo-wrap">
-        <!-- If your logo is in /assets, keep this path. If it's in root, change to "logo.png" -->
         <img src="Assets/LOGO_SM.png" alt="Mazzaratti" class="band-logo">
       </div>
 
@@ -97,12 +115,18 @@
     <div class="card">
       <h2>Photos</h2>
       <div class="grid" id="photoGrid">
-        <div class="ph">Add photo</div>
-        <div class="ph">Add photo</div>
-        <div class="ph">Add photo</div>
+        <a class="photo-tile" href="Assets/Live.jpg" target="_blank" rel="noreferrer">
+          <img src="Assets/Live.jpg" alt="Live show photo">
+        </a>
+        <a class="photo-tile" href="Assets/Table.jpg" target="_blank" rel="noreferrer">
+          <img src="Assets/Table.jpg" alt="Band at table photo">
+        </a>
+        <a class="photo-tile" href="Assets/Team.jpg" target="_blank" rel="noreferrer">
+          <img src="Assets/Team.jpg" alt="Band team photo">
+        </a>
       </div>
       <p class="muted" style="margin:10px 0 0">
-        Optional for Phase 1. We can wire real images later.
+        Tap any photo to open full size.
       </p>
     </div>
 
@@ -121,7 +145,6 @@
         <a class="btn small" id="shareBtn" href="#">Share</a>
         <a class="btn small" id="copyLinkBtn" href="#">Copy link</a>
         <a class="btn small" id="fbBtn" href="#" target="_blank" rel="noreferrer">Facebook</a>
-        <!-- Instagram is optional; remove this button if you don't use it -->
         <a class="btn small" id="igBtn" href="#" target="_blank" rel="noreferrer">Instagram</a>
       </div>
     </div>
@@ -132,11 +155,10 @@
     const CONFIG = {
       bandName: "Mazzaratti",
       tagline: "Timeless Rock / Pop / Country",
-      oneLiner: "Playing the songs that people forgot they loved!",
+      oneLiner: "Playing The Songs That People Forgot They Loved!",
       contactName: "Tom",
       phone: "5555555555",
       email: "mazzarattiband@gmail.com",
-      location: "SE Wisconsin",
       socials: {
         facebook: "https://www.facebook.com/mazzarattiband",
         instagram: "" // leave blank if you don't have one
@@ -150,14 +172,14 @@
       ],
       videos: [
         { label: "60s Highlight Clip", url: "https://youtu.be/yourclip1" },
-        { label: "Full Song Live",      url: "https://youtu.be/yourclip2" },
-        { label: "Crowd Moment",        url: "https://youtu.be/yourclip3" }
+        { label: "Full Song Live",     url: "https://youtu.be/yourclip2" },
+        { label: "Crowd Moment",       url: "https://youtu.be/yourclip3" }
       ],
       songs: [
         { title:"Don’t You (Forget About Me)", artist:"Simple Minds", genre:"Rock" },
         { title:"Hey Jealousy", artist:"Gin Blossoms", genre:"Rock" },
         { title:"Gunpowder & Lead", artist:"Miranda Lambert", genre:"Country" },
-        { title:"Seperate Ways’", artist:"Journey", genre:"Rock" },
+        { title:"Separate Ways", artist:"Journey", genre:"Rock" },
         { title:"Pink Pony Club", artist:"Chappell Roan", genre:"Pop" }
       ]
     };
@@ -165,7 +187,7 @@
     // ====== DOM HELPER ======
     const $ = (id) => document.getElementById(id);
 
-    // ====== RENDER TEXT FIELDS ======
+    // Render text fields
     $("tagline").textContent = CONFIG.tagline;
     $("oneLiner").textContent = CONFIG.oneLiner;
     $("contactName").textContent = CONFIG.contactName;
@@ -177,7 +199,7 @@
     $("textBtn").href  = `sms:${CONFIG.phone}`;
     $("emailBtn").href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(`${CONFIG.bandName} Booking Inquiry`)}`;
 
-    // Save-to-self email
+    // Save-to-self
     const saveBtn = $("saveBtn");
     if (saveBtn) {
       saveBtn.addEventListener("click", (e) => {
@@ -195,7 +217,7 @@ Contact: ${CONFIG.contactName} • ${formatPhone(CONFIG.phone)} • ${CONFIG.ema
       });
     }
 
-    // Proof bullets
+    // Quick proof bullets
     const ul = $("proofBullets");
     CONFIG.proofBullets.forEach(t => {
       const li = document.createElement("li");
@@ -215,7 +237,7 @@ Contact: ${CONFIG.contactName} • ${formatPhone(CONFIG.phone)} • ${CONFIG.ema
       vwrap.appendChild(a);
     });
 
-    // Socials
+    // Social buttons
     const fbBtn = $("fbBtn");
     if (fbBtn && CONFIG.socials.facebook) {
       fbBtn.href = CONFIG.socials.facebook;
@@ -232,7 +254,7 @@ Contact: ${CONFIG.contactName} • ${formatPhone(CONFIG.phone)} • ${CONFIG.ema
       igBtn.style.display = "none";
     }
 
-    // Request a date (mailto)
+    // Request a date
     $("requestBtn").addEventListener("click", (e) => {
       e.preventDefault();
       const subject = `${CONFIG.bandName} — Booking Request`;
@@ -253,7 +275,7 @@ Thanks!
       location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     });
 
-    // Share / copy link
+    // Share / Copy
     const shareBtn = $("shareBtn");
     if (shareBtn) {
       shareBtn.addEventListener("click", async (e) => {
@@ -310,7 +332,7 @@ Thanks!
     search.addEventListener("input", doSearch);
     renderSongs(allSongs);
 
-    // PWA service worker
+    // PWA service worker (optional)
     if ("serviceWorker" in navigator) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("./sw.js").catch(()=>{});
@@ -342,9 +364,3 @@ Thanks!
   </script>
 </body>
 </html>
-
-
-
-
-
-
