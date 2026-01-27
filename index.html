@@ -30,7 +30,12 @@
     .list{margin:0;padding-left:18px}
     .song{padding:10px 10px;border:1px solid var(--line);border-radius:12px;margin:8px 0;background:#0f0f14}
     .song b{display:block}
-    .grid{grid-template-columns:repeat(2,1fr);}
+    .grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 8px;
+}
+
 
     .footer{
       position:fixed;left:0;right:0;bottom:0;background:rgba(11,11,13,.92);
@@ -436,6 +441,7 @@ Thanks!
   </script>
 </body>
 </html>
+
 
 
 
