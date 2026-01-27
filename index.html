@@ -19,37 +19,30 @@
     .row{display:flex;gap:10px;flex-wrap:wrap}
     .btn{
       display:inline-flex;align-items:center;justify-content:center;gap:8px;
-      padding:12px 12px;border-radius:12px;border:1px solid var(--line);
+      padding:12px;border-radius:12px;border:1px solid var(--line);
       background:#101015;text-decoration:none;font-weight:600;min-width:120px
     }
     .btn.primary{background:var(--accent);color:#041006;border-color:transparent}
-    .btn.small{padding:10px 10px;min-width:auto}
+    .btn.small{padding:10px;min-width:auto}
     .muted{color:var(--muted);font-size:.95rem;line-height:1.35}
     h2{font-size:1.1rem;margin:0 0 10px}
     .tag{display:inline-block;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:var(--muted);font-size:.85rem}
     .list{margin:0;padding-left:18px}
-    .song{padding:10px 10px;border:1px solid var(--line);border-radius:12px;margin:8px 0;background:#0f0f14}
+    .song{padding:10px;border:1px solid var(--line);border-radius:12px;margin:8px 0;background:#0f0f14}
     .song b{display:block}
-    .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 8px;
-}
-
-
-    .footer{
-      position:fixed;left:0;right:0;bottom:0;background:rgba(11,11,13,.92);
-      backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px 14px
-    }
-    .footer .wrap{padding:0;max-width:720px}
 
     /* Logo */
     .logo-wrap{display:flex;justify-content:center;margin-bottom:6px}
     .band-logo{max-width:260px;width:100%;height:auto;display:block}
 
-    /* Photos */
+    /* PHOTO GRID */
+    .photo-grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap:8px;
+    }
     .photo-tile{
-      position:relative;
+      aspect-ratio:1/1;
       border-radius:12px;
       overflow:hidden;
       border:1px solid var(--line);
@@ -59,16 +52,20 @@
     .photo-tile img{
       width:100%;
       height:100%;
-      display:block;
-      aspect-ratio:1/1;
       object-fit:cover;
+      display:block;
     }
 
-    /* Clickable inline links */
-    .inline-link{
-      text-decoration: underline;
-      text-underline-offset: 2px;
+    .footer{
+      position:fixed;left:0;right:0;bottom:0;
+      background:rgba(11,11,13,.92);
+      backdrop-filter:blur(10px);
+      border-top:1px solid var(--line);
+      padding:10px 14px
     }
+    .footer .wrap{padding:0;max-width:720px}
+
+    .inline-link{text-decoration:underline;text-underline-offset:2px}
     .inline-link:hover{opacity:.9}
 
     /* Modal */
@@ -83,7 +80,7 @@
     }
     .modal.show{display:flex}
     .modal-card{
-      width:min(720px, 100%);
+      width:min(720px,100%);
       max-height:80vh;
       overflow:auto;
       background:var(--card);
@@ -106,342 +103,70 @@
 </head>
 
 <body>
+<div class="wrap">
+
+<div class="card">
+  <div class="logo-wrap">
+    <img src="Assets/LOGO_SM.png" alt="Mazzaratti" class="band-logo">
+  </div>
+
+  <div class="tag" id="tagline">Playing The Songs That People Forgot They Loved!</div>
+
+  <div class="row" style="margin-top:12px">
+    <a class="btn primary" id="callBtn" href="#">Call</a>
+    <a class="btn" id="textBtn" href="#">Text</a>
+    <a class="btn" id="emailBtn" href="#">Email</a>
+    <a class="btn" id="bioBtn" href="#">Band Bio</a>
+  </div>
+
+  <div class="muted" style="margin-top:10px">
+    Booking contact:
+    <span id="contactName">Tom</span> •
+    <a id="contactPhone" class="inline-link" href="#">(414) 870-0554</a> •
+    <a id="contactEmail" class="inline-link" href="#">mazzarattirocks@gmail.com</a>
+  </div>
+</div>
+
+<div class="card">
+  <h2>Photos</h2>
+  <div class="photo-grid" id="photoGrid">
+
+    <a class="photo-tile" href="Assets/Live.jpg" target="_blank">
+      <img src="Assets/Live.jpg" alt="Live show">
+    </a>
+
+    <a class="photo-tile" href="Assets/Table.jpg" target="_blank">
+      <img src="Assets/Table.jpg" alt="Band at table">
+    </a>
+
+    <a class="photo-tile" href="Assets/Team.jpg" target="_blank">
+      <img src="Assets/Team.jpg" alt="Team">
+    </a>
+
+    <a class="photo-tile" href="Assets/Live2.jpg" target="_blank">
+      <img src="Assets/Live2.jpg" alt="Live 2">
+    </a>
+
+    <a class="photo-tile" href="Assets/Dave.jpg" target="_blank">
+      <img src="Assets/Dave.jpg" alt="Dave">
+    </a>
+
+  </div>
+  <p class="muted" style="margin-top:10px">Tap any photo to open full size.</p>
+</div>
+
+</div>
+
+<div class="footer">
   <div class="wrap">
-    <div class="card">
-
-      <!-- LOGO -->
-      <div class="logo-wrap">
-        <img src="Assets/LOGO_SM.png" alt="Mazzaratti" class="band-logo">
-      </div>
-      <div class="tag" id="tagline">Playing The Songs That People Forgot They Loved!</div>
-      <p class="muted" id="oneLiner" style="margin:10px 0 0"></p>
-
-      <div class="row" style="margin-top:12px">
-        <a class="btn primary" id="callBtn" href="#">Call</a>
-        <a class="btn" id="textBtn" href="#">Text</a>
-        <a class="btn" id="emailBtn" href="#">Email</a>
-        <a class="btn" id="bioBtn" href="#">Band Bio</a>
-      </div>
-
-      <div class="muted" style="margin-top:10px">
-        Booking contact:
-        <span id="contactName">Tom</span> •
-        <a id="contactPhone" class="inline-link" href="#">(414) 870-0554</a> •
-        <a id="contactEmail" class="inline-link" href="#">mazzarattirocks@gmail.com</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Quick Info</h2>
-      <ul class="list muted" id="proofBullets"></ul>
-    </div>
-
-    <div class="card">
-      <h2>Videos</h2>
-      <div id="videoLinks" class="row"></div>
-    </div>
-
-    <div class="card">
-      <h2>Song List</h2>
-      <div id="songResults"></div>
-      <div class="muted" id="songCount" style="margin-top:8px"></div>
-    </div>
-
-    <div class="card">
-      <h2>Photos</h2>
-      <div class="grid" id="photoGrid">
-        <a class="photo-tile" href="Assets/Live.jpg" target="_blank" rel="noreferrer">
-          <img src="Assets/Live.jpg" alt="Live show photo">
-        </a>
-        <a class="photo-tile" href="Assets/Table.jpg" target="_blank" rel="noreferrer">
-          <img src="Assets/Table.jpg" alt="Band at table photo">
-        </a>
-        <a class="photo-tile" href="Assets/Team.jpg" target="_blank" rel="noreferrer">
-          <img src="Assets/Team.jpg" alt="Band team photo">
-        </a>
-        <a class="photo-tile" href="Assets/Live2.jpg" target="_blank" rel="noreferrer">
-          <img src="Assets/Live2.jpg" alt="Live Band photo">
-        </a>        
-        <a class="photo-tile" href="Assets/Dave.jpg" target="_blank" rel="noreferrer">
-          <img src="Assets/Dave.jpg" alt="Dave photo">
-        </a>          
-      </div>
-      <p class="muted" style="margin:10px 0 0">
-        Tap any photo to open full size.
-      </p>
-    </div>
-
-    <div class="card">
-      <h2>Request a Date</h2>
-      <p class="muted" style="margin-top:0">
-        Tap below to email a booking request with your preferred dates/time.
-      </p>
-      <a class="btn primary" id="requestBtn" href="#">Request a date</a>
+    <div class="row">
+      <a class="btn small" id="shareBtn" href="#">Share</a>
+      <a class="btn small" id="copyLinkBtn" href="#">Copy link</a>
+      <a class="btn small" id="fbBtn" href="#">Facebook</a>
+      <a class="btn small" id="igBtn" href="#">Instagram</a>
     </div>
   </div>
+</div>
 
-  <!-- BIO MODAL -->
-  <div id="bioModal" class="modal" aria-hidden="true">
-    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="bioTitle">
-      <div class="modal-head">
-        <h2 id="bioTitle" style="margin:0">Band Bio</h2>
-        <a href="#" class="btn small" id="bioCloseBtn">Close</a>
-      </div>
-      <div class="modal-body muted" id="bioText"></div>
-    </div>
-  </div>
-
-  <div class="footer">
-    <div class="wrap">
-      <div class="row">
-        <a class="btn small" id="shareBtn" href="#">Share</a>
-        <a class="btn small" id="copyLinkBtn" href="#">Copy link</a>
-        <a class="btn small" id="fbBtn" href="#" target="_blank" rel="noreferrer">Facebook</a>
-        <a class="btn small" id="igBtn" href="#" target="_blank" rel="noreferrer">Instagram</a>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // ====== CONFIG (edit these) ======
-    const CONFIG = {
-      bandName: "Mazzaratti",
-      tagline: "Playing The Songs That People Forgot They Loved!",
-      oneLiner: "",
-      contactName: "Tom",
-      phone: "4148700554", // digits only
-      email: "mazzarattirocks@gmail.com",
-      socials: {
-        facebook: "https://www.facebook.com/mazzarattiband",
-        instagram: "" // leave blank if you don't have one
-      },
-      reps: {
-        "Tom":  { phone: "4148700554" },
-        "Lisa": { phone: "8155491632" },
-        "Dave": { phone: "2628937301" },
-        "DvO":  { phone: "4143793045" },
-        "Don":  { phone: "4144036714" }
-      },
-      bio: `Mazzaratti is all about helping you remember the songs you forgot you loved! Since 2020, we’ve been delivering high-energy performances across the greater Milwaukee area, keeping crowds dancing with an electrifying mix of classic rock, pop, alternative, country, and today’s biggest hits.
-
-Fronted by a powerhouse female vocalist and backed by a group of seasoned musicians, we bring a dynamic and engaging stage presence that makes every show unforgettable. Whether we’re rocking a packed club, lighting up a festival, or playing your favorite local venue, we thrive on creating a fun, high-energy atmosphere that keeps you coming back for more.
-
-We love what we do, and we love sharing it with all of you. The energy, the music, and the connection we build with our fans make every performance something special. Thank you for being a part of our journey—we can’t wait to see you at the next show!`,
-      proofBullets: [
-        "Up to 3 hours of Classic Rock, New Wave, 80s, 90s, Country, Pop.",
-        "Crowd Participation Games - ROCK-Artist-BINGO.",
-        "Great for bars, festivals, private parties, and events.",
-        "We promote each show and share venue posts.",
-        "Reliable, easy to work with, professional setup/teardown."
-      ],
-      videos: [
-        { label: "60sec Highlight Clip", url: "https://youtu.be/yourclip1" },
-        { label: "Full Song Live",     url: "https://youtu.be/yourclip2" },
-        { label: "Crowd Moment",       url: "https://youtu.be/yourclip3" }
-      ],
-      songs: [
-        { title:"Don’t You (Forget About Me)", artist:"Simple Minds", genre:"Rock" },
-        { title:"Hey Jealousy", artist:"Gin Blossoms", genre:"Rock" },
-        { title:"Gunpowder & Lead", artist:"Miranda Lambert", genre:"Country" },
-        { title:"Separate Ways", artist:"Journey", genre:"Rock" },
-        { title:"Pink Pony Club", artist:"Chappell Roan", genre:"Pop" }
-      ]
-    };
-
-    // ====== DOM HELPER ======
-    const $ = (id) => document.getElementById(id);
-
-    // ====== APPLY REP FROM URL (rep=Tom|Lisa|Dave|DvO|Don) ======
-    const params = new URLSearchParams(window.location.search);
-    const rep = (params.get("rep") || "").trim();
-
-    if (rep && CONFIG.reps[rep]) {
-      CONFIG.contactName = rep;
-      CONFIG.phone = CONFIG.reps[rep].phone;
-    }
-
-    // Render text
-    $("tagline").textContent = CONFIG.tagline;
-    $("oneLiner").textContent = CONFIG.oneLiner;
-    $("contactName").textContent = CONFIG.contactName;
-
-    // Clickable phone + email in the contact line
-    const phoneEl = $("contactPhone");
-    phoneEl.textContent = formatPhone(CONFIG.phone);
-    phoneEl.href = `tel:${CONFIG.phone}`;
-
-    const emailEl = $("contactEmail");
-    emailEl.textContent = CONFIG.email;
-    emailEl.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(CONFIG.bandName + " Booking Inquiry")}`;
-
-    // Header buttons
-    $("callBtn").href  = `tel:${CONFIG.phone}`;
-    $("textBtn").href  = `sms:${CONFIG.phone}`;
-    $("emailBtn").href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(CONFIG.bandName + " Booking Inquiry")}`;
-
-    // Quick Info bullets
-    const ul = $("proofBullets");
-    CONFIG.proofBullets.forEach(t => {
-      const li = document.createElement("li");
-      li.textContent = t;
-      ul.appendChild(li);
-    });
-
-    // Videos
-    const vwrap = $("videoLinks");
-    CONFIG.videos.forEach(v => {
-      const a = document.createElement("a");
-      a.className = "btn";
-      a.href = v.url;
-      a.target = "_blank";
-      a.rel = "noreferrer";
-      a.textContent = v.label;
-      vwrap.appendChild(a);
-    });
-
-    // Social buttons
-    const fbBtn = $("fbBtn");
-    if (fbBtn && CONFIG.socials.facebook) {
-      fbBtn.href = CONFIG.socials.facebook;
-      fbBtn.style.display = "inline-flex";
-    } else if (fbBtn) {
-      fbBtn.style.display = "none";
-    }
-
-    const igBtn = $("igBtn");
-    if (igBtn && CONFIG.socials.instagram) {
-      igBtn.href = CONFIG.socials.instagram;
-      igBtn.style.display = "inline-flex";
-    } else if (igBtn) {
-      igBtn.style.display = "none";
-    }
-
-    // Request a date (venue fills in dates)
-    $("requestBtn").addEventListener("click", (e) => {
-      e.preventDefault();
-      const subject = `${CONFIG.bandName} — Booking Request`;
-      const body =
-`Hi ${CONFIG.contactName},
-
-I’m interested in booking ${CONFIG.bandName} for our venue. Here are a few dates I’m considering:
-
-- (date 1)
-- (date 2)
-- (date 3)
-
-Venue name:
-Contact name:
-Phone:
-Preferred start time:
-Load-in time:
-Any sound/volume notes:
-
-Rep who shared this kit: ${CONFIG.contactName} (${formatPhone(CONFIG.phone)})
-
-Thanks!
-`;
-      location.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    });
-
-    // Share / Copy
-    const shareBtn = $("shareBtn");
-    if (shareBtn) {
-      shareBtn.addEventListener("click", async (e) => {
-        e.preventDefault();
-        const shareData = {
-          title: `${CONFIG.bandName} Booking Kit`,
-          text: "Videos, song list, and booking contact:",
-          url: location.href
-        };
-        if (navigator.share) {
-          try { await navigator.share(shareData); } catch {}
-        } else {
-          await copyText(location.href);
-          alert("Link copied.");
-        }
-      });
-    }
-
-    const copyLinkBtn = $("copyLinkBtn");
-    if (copyLinkBtn) {
-      copyLinkBtn.addEventListener("click", async (e) => {
-        e.preventDefault();
-        await copyText(location.href);
-        alert("Link copied.");
-      });
-    }
-
-    // Song list (NO SEARCH)
-    const results = $("songResults");
-    const count = $("songCount");
-
-    function renderSongs(list) {
-      results.innerHTML = "";
-      list.forEach(s => {
-        const div = document.createElement("div");
-        div.className = "song";
-        div.innerHTML = `<b>${escapeHtml(s.title)}</b><span class="muted">${escapeHtml(s.artist)} • ${escapeHtml(s.genre)}</span>`;
-        results.appendChild(div);
-      });
-      count.textContent = `${list.length} songs`;
-    }
-    renderSongs(CONFIG.songs);
-
-    // Band Bio modal
-    const bioModal = $("bioModal");
-    const bioBtn = $("bioBtn");
-    const bioCloseBtn = $("bioCloseBtn");
-    const bioText = $("bioText");
-
-    bioText.textContent = CONFIG.bio || "Bio coming soon.";
-
-    function openBio(){
-      bioModal.classList.add("show");
-      bioModal.setAttribute("aria-hidden", "false");
-    }
-    function closeBio(){
-      bioModal.classList.remove("show");
-      bioModal.setAttribute("aria-hidden", "true");
-    }
-
-    bioBtn.addEventListener("click", (e) => { e.preventDefault(); openBio(); });
-    bioCloseBtn.addEventListener("click", (e) => { e.preventDefault(); closeBio(); });
-    bioModal.addEventListener("click", (e) => { if (e.target === bioModal) closeBio(); });
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeBio(); });
-
-    // PWA service worker (optional) - kept OFF to avoid iPhone caching issues
-    //if ("serviceWorker" in navigator) {
-    //  window.addEventListener("load", () => {
-    //    navigator.serviceWorker.register("./sw.js").catch(()=>{});
-    //  });
-    //}
-
-    // Helpers
-    function formatPhone(digits){
-      const s = (digits || "").replace(/\D/g,"");
-      if (s.length !== 10) return digits;
-      return `(${s.slice(0,3)}) ${s.slice(3,6)}-${s.slice(6)}`;
-    }
-
-    async function copyText(text){
-      if (navigator.clipboard?.writeText) return navigator.clipboard.writeText(text);
-      const ta = document.createElement("textarea");
-      ta.value = text;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand("copy");
-      document.body.removeChild(ta);
-    }
-
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, m => ({
-        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
-      }[m]));
-    }
-  </script>
 </body>
 </html>
-
-
-
-
