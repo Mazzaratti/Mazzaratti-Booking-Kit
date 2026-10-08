@@ -10,27 +10,103 @@
   <meta name="theme-color" content="#111111" />
 
   <style>
-    :root { --bg:#0b0b0d; --card:#15151a; --text:#f4f4f5; --muted:#a1a1aa; --accent:#22c55e; --line:#27272a; }
-    *{box-sizing:border-box}
-    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:var(--bg);color:var(--text)}
-    a{color:inherit}
-    .wrap{max-width:720px;margin:0 auto;padding:18px 14px 80px}
-    .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;margin:12px 0}
-    .row{display:flex;gap:10px;flex-wrap:wrap}
-    .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:12px;border-radius:12px;border:1px solid var(--line);
-      background:#101015;text-decoration:none;font-weight:600;min-width:120px
+    :root {
+      --bg:#0b0b0d;
+      --card:#15151a;
+      --text:#f4f4f5;
+      --muted:#a1a1aa;
+      --accent:#22c55e;
+      --line:#27272a;
     }
-    .btn.primary{background:var(--accent);color:#041006;border-color:transparent}
-    .btn.small{padding:10px;min-width:auto}
-    .muted{color:var(--muted);font-size:.95rem;line-height:1.35}
-    h2{font-size:1.1rem;margin:0 0 10px}
-    .list{margin:0;padding-left:18px}
-    .song{padding:10px;border:1px solid var(--line);border-radius:12px;margin:8px 0;background:#0f0f14}
-    .song b{display:block}
 
-    /* ✅ TAGLINE CENTER FIX */
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    a{
+      color:inherit;
+    }
+
+    .wrap{
+      max-width:720px;
+      margin:0 auto;
+      padding:18px 14px 80px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:14px;
+      margin:12px 0;
+    }
+
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:12px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:#101015;
+      text-decoration:none;
+      font-weight:600;
+      min-width:120px;
+    }
+
+    .btn.primary{
+      background:var(--accent);
+      color:#041006;
+      border-color:transparent;
+    }
+
+    .btn.small{
+      padding:10px;
+      min-width:auto;
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:.95rem;
+      line-height:1.35;
+    }
+
+    h2{
+      font-size:1.1rem;
+      margin:0 0 10px;
+    }
+
+    .list{
+      margin:0;
+      padding-left:18px;
+    }
+
+    .song{
+      padding:10px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      margin:8px 0;
+      background:#0f0f14;
+    }
+
+    .song b{
+      display:block;
+    }
+
+    /* TAGLINE */
     .tag{
       display:block;
       width:fit-content;
@@ -43,16 +119,53 @@
       text-align:center;
     }
 
-    /* Logo */
-    .logo-wrap{display:flex;justify-content:center;margin-bottom:6px}
-    .band-logo{max-width:260px;width:100%;height:auto;display:block}
+    /* LOGO */
+    .logo-wrap{
+      display:flex;
+      justify-content:center;
+      margin-bottom:6px;
+    }
 
-    /* Photos */
+    .band-logo{
+      max-width:260px;
+      width:100%;
+      height:auto;
+      display:block;
+    }
+
+    /* VIDEO */
+    .video-wrap{
+      width:60%;
+      max-width:400px;
+      margin:0 auto;
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      background:#000;
+    }
+
+    .video-wrap video{
+      width:100%;
+      height:auto;
+      display:block;
+      background:#000;
+    }
+
+    /* VIDEO SIZE ON MOBILE */
+    @media (max-width:600px){
+      .video-wrap{
+        width:85%;
+        max-width:320px;
+      }
+    }
+
+    /* PHOTOS */
     .photo-grid{
       display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      grid-template-columns:repeat(auto-fit, minmax(120px, 1fr));
       gap:8px;
     }
+
     .photo-tile{
       aspect-ratio:1/1;
       border-radius:12px;
@@ -61,6 +174,7 @@
       background:#0f0f14;
       display:block;
     }
+
     .photo-tile img{
       width:100%;
       height:100%;
@@ -68,21 +182,35 @@
       display:block;
     }
 
-    .inline-link{text-decoration: underline;text-underline-offset:2px}
-    .inline-link:hover{opacity:.9}
+    .inline-link{
+      text-decoration:underline;
+      text-underline-offset:2px;
+    }
+
+    .inline-link:hover{
+      opacity:.9;
+    }
 
     .footer{
-      position:fixed;left:0;right:0;bottom:0;
+      position:fixed;
+      left:0;
+      right:0;
+      bottom:0;
       background:rgba(11,11,13,.92);
       backdrop-filter:blur(10px);
       border-top:1px solid var(--line);
-      padding:10px 14px
+      padding:10px 14px;
     }
-    .footer .wrap{padding:0;max-width:720px}
 
-    /* Modal */
+    .footer .wrap{
+      padding:0;
+      max-width:720px;
+    }
+
+    /* MODAL */
     .modal{
-      position:fixed; inset:0;
+      position:fixed;
+      inset:0;
       background:rgba(0,0,0,.6);
       display:none;
       align-items:center;
@@ -90,7 +218,11 @@
       padding:16px;
       z-index:9999;
     }
-    .modal.show{display:flex}
+
+    .modal.show{
+      display:flex;
+    }
+
     .modal-card{
       width:min(720px,100%);
       max-height:80vh;
@@ -100,12 +232,14 @@
       border-radius:16px;
       padding:14px;
     }
+
     .modal-head{
       display:flex;
       align-items:center;
       justify-content:space-between;
       margin-bottom:10px;
     }
+
     .modal-body{
       white-space:pre-wrap;
       line-height:1.45;
@@ -114,155 +248,405 @@
 </head>
 
 <body>
+
 <div class="wrap">
 
-<div class="card">
-  <div class="logo-wrap">
-    <img src="Assets/LOGO_SM.png" alt="Mazzaratti" class="band-logo">
+  <!-- HEADER / CONTACT -->
+  <div class="card">
+
+    <div class="logo-wrap">
+      <img src="Assets/LOGO_SM.png" alt="Mazzaratti" class="band-logo">
+    </div>
+
+    <!-- TAGLINE -->
+    <div class="tag" id="tagline"></div>
+
+    <div class="row" style="margin-top:12px">
+      <a class="btn primary" id="callBtn" href="#">Call</a>
+      <a class="btn" id="textBtn" href="#">Text</a>
+      <a class="btn" id="emailBtn" href="#">Email</a>
+      <a class="btn" id="bioBtn" href="#">Band Bio</a>
+      <a class="btn" href="Assets/Mazzaratti_Stage_Plot.pdf" target="_blank">📄 Stage Plot</a>
+    </div>
+
+    <div class="muted" style="margin-top:10px">
+      Booking contact:
+      <span id="contactName"></span> •
+      <a id="contactPhone" class="inline-link" href="#"></a> •
+      <a id="contactEmail" class="inline-link" href="#"></a>
+    </div>
+
   </div>
 
-  <!-- TAGLINE -->
-  <div class="tag" id="tagline"></div>
 
-  <div class="row" style="margin-top:12px">
-    <a class="btn primary" id="callBtn" href="#">Call</a>
-    <a class="btn" id="textBtn" href="#">Text</a>
-    <a class="btn" id="emailBtn" href="#">Email</a>
-    <a class="btn" id="bioBtn" href="#">Band Bio</a>
-    <a class="btn" href="Assets/Mazzaratti_Stage_Plot.pdf" target="_blank">📄 Stage Plot</a>
+  <!-- QUICK INFO -->
+  <div class="card">
+    <h2>Quick Info</h2>
+    <ul class="list muted" id="proofBullets"></ul>
   </div>
 
-  <div class="muted" style="margin-top:10px">
-    Booking contact:
-    <span id="contactName"></span> •
-    <a id="contactPhone" class="inline-link" href="#"></a> •
-    <a id="contactEmail" class="inline-link" href="#"></a>
+
+  <!-- PROMO VIDEO -->
+  <div class="card" id="videosCard">
+
+    <h2>Promo Video</h2>
+
+    <div class="video-wrap">
+
+      <video controls playsinline preload="metadata">
+        <source src="Assets/promo-1.mp4" type="video/mp4">
+        Your browser does not support HTML5 video.
+      </video>
+
+    </div>
+
   </div>
-</div>
 
-<div class="card">
-  <h2>Quick Info</h2>
-  <ul class="list muted" id="proofBullets"></ul>
-</div>
 
-<!-- VIDEOS (disabled safely) -->
-<!-- VIDEOS -->
-<div class="card" id="videosCard">
-  <h2>Videos</h2>
+  <!-- SONG LIST -->
+  <div class="card">
 
-  <div class="video-wrap">
-    <video controls playsinline preload="metadata">
-      <source src="Assets/promo-1.mp4" type="video/mp4">
-      Your browser does not support HTML5 video.
-    </video>
+    <h2>Song List</h2>
+
+    <div id="songResults"></div>
+
+    <div
+      class="muted"
+      id="songCount"
+      style="margin-top:8px">
+    </div>
+
   </div>
-</div>
 
-<div class="card">
-  <h2>Song List</h2>
-  <div id="songResults"></div>
-  <div class="muted" id="songCount" style="margin-top:8px"></div>
-</div>
 
-<div class="card">
-  <h2>Photos</h2>
-  <div class="photo-grid">
-    <a class="photo-tile" href="Assets/Live.jpg" target="_blank"><img src="Assets/Live.jpg"></a>
-    <a class="photo-tile" href="Assets/Table.jpg" target="_blank"><img src="Assets/Table.jpg"></a>
-    <a class="photo-tile" href="Assets/Team.jpg" target="_blank"><img src="Assets/Team.jpg"></a>
-    <a class="photo-tile" href="Assets/Live2.jpg" target="_blank"><img src="Assets/Live2.jpg"></a>
-    <a class="photo-tile" href="Assets/Dave BW.png" target="_blank"><img src="Assets/Dave BW.png"></a>
-    <a class="photo-tile" href="Assets/Don - BW.png" target="_blank"><img src="Assets/Don - BW.png"></a>
-    <a class="photo-tile" href="Assets/Lisa - BW.png" target="_blank"><img src="Assets/Lisa - BW.png"></a>
-    <a class="photo-tile" href="Assets/DvO - BW.png" target="_blank"><img src="Assets/DvO - BW.png"></a>
-    <a class="photo-tile" href="Assets/Tom - BW.png" target="_blank"><img src="Assets/Tom - BW.png"></a>
-    <a class="photo-tile" href="Assets/Master Brochure.png" target="_blank"><img src="Assets/Master Brochure.png"></a>    
-    <a class="photo-tile" href="Assets/Mazzaratti - BW.png" target="_blank"><img src="Assets/Mazzaratti - BW.png"></a>        
+  <!-- PHOTOS -->
+  <div class="card">
+
+    <h2>Photos</h2>
+
+    <div class="photo-grid">
+
+      <a class="photo-tile"
+         href="Assets/Live.jpg"
+         target="_blank">
+        <img src="Assets/Live.jpg" alt="Mazzaratti Live">
+      </a>
+
+      <a class="photo-tile"
+         href="Assets/Table.jpg"
+         target="_blank">
+        <img src="Assets/Table.jpg" alt="Mazzaratti">
+      </a>
+
+      <a class="photo-tile"
+         href="Assets/Team.jpg"
+         target="_blank">
+        <img src="Assets/Team.jpg" alt="Mazzaratti Band">
+      </a>
+
+      <a class="photo-tile"
+         href="Assets/Live2.jpg"
+         target="_blank">
+        <img src="Assets/Live2.jpg" alt="Mazzaratti Live">
+      </a>
+
+      <a class="photo-tile"
+         href="Assets/Dave BW.png"
+         target="_blank">
+        <img src="Assets/Dave BW.png" alt="Dave">
+      </a>
+
+      <a class="photo-tile"
+         href="Assets/Don - BW.png"
+         target="_blank">
+        <img src="Assets/Don - BW.png" alt="Don">
+      </a>
+
+      <a class="photo-tile"
+         href="Assets/Lisa - BW.png"
+         target="_blank">
+        <img src="Assets/Lisa - BW.png" alt="Lisa">
+      </a>
+
+      <a class="photo-tile"
+         href="Assets/DvO - BW.png"
+         target="_blank">
+        <img src="Assets/DvO - BW.png" alt="DvO">
+      </a>
+
+      <a class="photo-tile"
+         href="Assets/Tom - BW.png"
+         target="_blank">
+        <img src="Assets/Tom - BW.png" alt="Tom">
+      </a>
+
+      <a class="photo-tile"
+         href="Assets/Master Brochure.png"
+         target="_blank">
+        <img src="Assets/Master Brochure.png" alt="Mazzaratti Brochure">
+      </a>
+
+      <a class="photo-tile"
+         href="Assets/Mazzaratti - BW.png"
+         target="_blank">
+        <img src="Assets/Mazzaratti - BW.png" alt="Mazzaratti">
+      </a>
+
+    </div>
+
   </div>
+
+
+  <!-- REQUEST DATE -->
+  <div class="card">
+
+    <h2>Request a Date</h2>
+
+    <p class="muted">
+      Tap below to email a booking request with your preferred dates/time.
+    </p>
+
+    <a
+      class="btn primary"
+      id="requestBtn"
+      href="#">
+      Request a date
+    </a>
+
+  </div>
+
 </div>
 
-<div class="card">
-  <h2>Request a Date</h2>
-  <p class="muted">Tap below to email a booking request with your preferred dates/time.</p>
-  <a class="btn primary" id="requestBtn" href="#">Request a date</a>
-</div>
-
-</div>
 
 <!-- BIO MODAL -->
 <div id="bioModal" class="modal">
+
   <div class="modal-card">
+
     <div class="modal-head">
+
       <h2>Band Bio</h2>
-      <a href="#" class="btn small" id="bioCloseBtn">Close</a>
+
+      <a
+        href="#"
+        class="btn small"
+        id="bioCloseBtn">
+        Close
+      </a>
+
     </div>
-    <div class="modal-body muted" id="bioText"></div>
+
+    <div
+      class="modal-body muted"
+      id="bioText">
+    </div>
+
   </div>
+
 </div>
 
+
 <script>
+
 const CONFIG = {
+
   bandName: "Mazzaratti",
+
   tagline: "Playing The Songs That People Forgot They Loved!",
+
   contactName: "Dave",
+
   phone: "262-893-7301",
+
   email: "mazzarattirocks@gmail.com",
+
   bio: `Mazzaratti is all about helping you remember the songs you forgot you loved! Since 2020, we’ve been delivering high-energy performances across the greater Milwaukee area.`,
+
   proofBullets: [
     "Up to 3 hours of Classic Rock, New Wave, 80s, 90s, Country, Pop.",
     "Crowd Participation Games - ROCK-Artist-BINGO.",
     "Great for bars, festivals, private parties, and events.",
     "Reliable, easy to work with, professional setup/teardown."
   ],
+
   songs: [
-    { title:"Voices Carry", artist:"Til Tuesday", genre:"New Wave" },
-    { title:"Hey Jealousy", artist:"Gin Blossoms", genre:"Alt Rock" },
-    { title:"Gunpowder & Lead", artist:"Miranda Lambert", genre:"Country" },
-    { title:"Separate Ways", artist:"Journey", genre:"Classic Rock" },
-    { title:"Pink Pony Club", artist:"Chappell Roan", genre:"Modern Pop" }
+
+    {
+      title:"Voices Carry",
+      artist:"Til Tuesday",
+      genre:"New Wave"
+    },
+
+    {
+      title:"Hey Jealousy",
+      artist:"Gin Blossoms",
+      genre:"Alt Rock"
+    },
+
+    {
+      title:"Gunpowder & Lead",
+      artist:"Miranda Lambert",
+      genre:"Country"
+    },
+
+    {
+      title:"Separate Ways",
+      artist:"Journey",
+      genre:"Classic Rock"
+    },
+
+    {
+      title:"Pink Pony Club",
+      artist:"Chappell Roan",
+      genre:"Modern Pop"
+    }
+
   ]
+
 };
 
-const $ = (id)=>document.getElementById(id);
 
-// Render header
+const $ = (id) => document.getElementById(id);
+
+
+/* HEADER */
+
 $("tagline").textContent = CONFIG.tagline;
+
 $("contactName").textContent = CONFIG.contactName;
+
 $("contactPhone").textContent = formatPhone(CONFIG.phone);
-$("contactPhone").href = `tel:${CONFIG.phone}`;
-$("contactEmail").textContent = CONFIG.email;
-$("contactEmail").href = `mailto:${CONFIG.email}`;
-$("bioText").textContent = CONFIG.bio;
 
-// Buttons
-$("callBtn").href=`tel:${CONFIG.phone}`;
-$("textBtn").href=`sms:${CONFIG.phone}`;
-$("emailBtn").href=`mailto:${CONFIG.email}`;
+$("contactPhone").href =
+  `tel:${CONFIG.phone}`;
 
-// Quick info
-CONFIG.proofBullets.forEach(t=>{
-  const li=document.createElement("li");
-  li.textContent=t;
+$("contactEmail").textContent =
+  CONFIG.email;
+
+$("contactEmail").href =
+  `mailto:${CONFIG.email}`;
+
+$("bioText").textContent =
+  CONFIG.bio;
+
+
+/* CONTACT BUTTONS */
+
+$("callBtn").href =
+  `tel:${CONFIG.phone}`;
+
+$("textBtn").href =
+  `sms:${CONFIG.phone}`;
+
+$("emailBtn").href =
+  `mailto:${CONFIG.email}`;
+
+
+/* REQUEST DATE BUTTON */
+
+$("requestBtn").href =
+  `mailto:${CONFIG.email}?subject=${encodeURIComponent("Mazzaratti Booking Request")}&body=${encodeURIComponent(
+`Hi Dave,
+
+I'm interested in booking Mazzaratti.
+
+Preferred Date(s):
+
+Event / Venue:
+
+Location:
+
+Approximate Performance Time:
+
+Additional Information:
+
+Thanks!`
+  )}`;
+
+
+/* QUICK INFO */
+
+CONFIG.proofBullets.forEach(t => {
+
+  const li =
+    document.createElement("li");
+
+  li.textContent = t;
+
   $("proofBullets").appendChild(li);
+
 });
 
-// Songs
-CONFIG.songs.forEach(s=>{
-  const d=document.createElement("div");
-  d.className="song";
-  d.innerHTML=`<b>${s.title}</b><span class="muted">${s.artist} • ${s.genre}</span>`;
+
+/* SONGS */
+
+CONFIG.songs.forEach(s => {
+
+  const d =
+    document.createElement("div");
+
+  d.className = "song";
+
+  d.innerHTML =
+    `<b>${s.title}</b>
+     <span class="muted">
+       ${s.artist} • ${s.genre}
+     </span>`;
+
   $("songResults").appendChild(d);
-});
-$("songCount").textContent = `${CONFIG.songs.length} songs`;
 
-// Bio modal
-$("bioBtn").onclick=e=>{e.preventDefault();$("bioModal").classList.add("show");};
-$("bioCloseBtn").onclick=e=>{e.preventDefault();$("bioModal").classList.remove("show");};
+});
+
+
+$("songCount").textContent =
+  `${CONFIG.songs.length} songs`;
+
+
+/* BIO MODAL */
+
+$("bioBtn").onclick = e => {
+
+  e.preventDefault();
+
+  $("bioModal").classList.add("show");
+
+};
+
+
+$("bioCloseBtn").onclick = e => {
+
+  e.preventDefault();
+
+  $("bioModal").classList.remove("show");
+
+};
+
+
+/* CLOSE MODAL WHEN CLICKING OUTSIDE */
+
+$("bioModal").onclick = e => {
+
+  if(e.target === $("bioModal")){
+
+    $("bioModal").classList.remove("show");
+
+  }
+
+};
+
+
+/* PHONE FORMAT */
 
 function formatPhone(d){
-  const s=d.replace(/\D/g,"");
+
+  const s =
+    d.replace(/\D/g,"");
+
   return `(${s.slice(0,3)}) ${s.slice(3,6)}-${s.slice(6)}`;
+
 }
+
 </script>
+
 </body>
 </html>
