@@ -78,6 +78,19 @@
       min-width:auto;
     }
 
+    /* FACEBOOK IMAGE BUTTON */
+    .facebook-btn{
+      padding:6px 12px;
+    }
+
+    .facebook-btn img{
+      height:32px;
+      width:auto;
+      max-width:120px;
+      object-fit:contain;
+      display:block;
+    }
+
     .muted{
       color:var(--muted);
       font-size:.95rem;
@@ -267,7 +280,18 @@
       <a class="btn" id="emailBtn" href="#">Email</a>
       <a class="btn" id="bioBtn" href="#">Band Bio</a>
       <a class="btn" href="Assets/Stage.pdf" target="_blank">📄 Stage Plot</a>
-      <a class="btn" href="https://www.facebook.com/mazzarattiband" target="_blank">Follow Us</a>
+
+      <!-- FACEBOOK -->
+      <a
+        class="btn facebook-btn"
+        href="https://www.facebook.com/mazzarattiband"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Follow Mazzaratti on Facebook">
+        <img
+          src="Assets/FB_LOGO.png"
+          alt="Follow Mazzaratti on Facebook">
+      </a>
     </div>
 
     <div class="muted" style="margin-top:10px">
