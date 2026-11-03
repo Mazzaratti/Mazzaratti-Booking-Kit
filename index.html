@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mazzaratti - Booking Kit</title>
-  <meta name="description" content="Mobile booking kit: videos, song list, and contact in one place." />
+  <meta name="description" content="Mazzaratti booking kit: helping you remember the songs you forgot you loved. Videos, featured songs, full repertoire, photos, and booking contact." />
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="icon" href="icons/icon-192.png">
   <meta name="theme-color" content="#111111" />
@@ -115,6 +115,10 @@
       background:#0f0f14;
     }
 
+    .music-subhead { font-size:1rem; margin:16px 0 10px; }
+    .music-toggle { width:100%; margin-top:14px; cursor:pointer; color:var(--text); font:inherit; font-weight:600; }
+    .music-toggle:hover { border-color:var(--accent); }
+    [hidden] { display:none !important; }
     .song b{
       display:block;
     }
@@ -332,9 +336,17 @@
   <!-- SONG LIST -->
   <div class="card">
 
-    <h2>Song List</h2>
+    <h2>Our Music</h2>
+    <p class="muted">Recognizable favorites, unexpected gems, and the songs you forgot you loved. Here is a taste of what we play.</p>
+    <h3 class="music-subhead">Featured Songs</h3>
 
     <div id="songResults"></div>
+    <button class="btn music-toggle" id="fullSongsBtn" type="button" aria-expanded="false" aria-controls="fullSongsPanel">View Full Repertoire (62 Songs)</button>
+    <div id="fullSongsPanel" hidden>
+      <h3 class="music-subhead">Complete Repertoire</h3>
+      <p class="muted">All 62 songs are in our active repertoire. Listed alphabetically by title.</p>
+      <div id="fullSongResults"></div>
+    </div>
 
     <div
       class="muted"
@@ -514,38 +526,277 @@ MAZZARATTI. Helping you remember the songs you forgot you loved!`,
   ],
 
   songs: [
-
-    {
-      title:"Voices Carry",
-      artist:"Til Tuesday",
-      genre:"New Wave"
-    },
-
-    {
-      title:"Hey Jealousy",
-      artist:"Gin Blossoms",
-      genre:"Alt Rock"
-    },
-
-    {
-      title:"Gunpowder & Lead",
-      artist:"Miranda Lambert",
-      genre:"Country"
-    },
-
-    {
-      title:"Separate Ways",
-      artist:"Journey",
-      genre:"Classic Rock"
-    },
-
-    {
-      title:"Pink Pony Club",
-      artist:"Chappell Roan",
-      genre:"Modern Pop"
-    }
-
-  ]
+  {
+    "title": "Ain't It Fun",
+    "artist": "Paramore"
+  },
+  {
+    "title": "Ain't Talkin' 'Bout Love",
+    "artist": "Van Halen"
+  },
+  {
+    "title": "Behind the Wall of Sleep",
+    "artist": "The Smithereens"
+  },
+  {
+    "title": "Bette Davis Eyes",
+    "artist": "Kim Carnes"
+  },
+  {
+    "title": "Beverly Hills",
+    "artist": "Weezer"
+  },
+  {
+    "title": "Black Velvet",
+    "artist": "Alannah Myles"
+  },
+  {
+    "title": "Cars",
+    "artist": "Gary Numan"
+  },
+  {
+    "title": "crushcrushcrush",
+    "artist": "Paramore"
+  },
+  {
+    "title": "Don't Change",
+    "artist": "INXS"
+  },
+  {
+    "title": "Don't You (Forget About Me)",
+    "artist": "Simple Minds"
+  },
+  {
+    "title": "Dress You Up",
+    "artist": "Madonna"
+  },
+  {
+    "title": "Everybody Wants You",
+    "artist": "Billy Squier"
+  },
+  {
+    "title": "Ex's & Oh's",
+    "artist": "Elle King"
+  },
+  {
+    "title": "Flowers",
+    "artist": "Miley Cyrus"
+  },
+  {
+    "title": "Gone Away",
+    "artist": "The Offspring"
+  },
+  {
+    "title": "Good",
+    "artist": "Better Than Ezra"
+  },
+  {
+    "title": "Goodbye to You",
+    "artist": "Scandal"
+  },
+  {
+    "title": "Gunpowder & Lead",
+    "artist": "Miranda Lambert"
+  },
+  {
+    "title": "Harden My Heart",
+    "artist": "Quarterflash"
+  },
+  {
+    "title": "Heartbreaker",
+    "artist": "Pat Benatar"
+  },
+  {
+    "title": "Hey Jealousy",
+    "artist": "Gin Blossoms"
+  },
+  {
+    "title": "I Touch Myself",
+    "artist": "Divinyls"
+  },
+  {
+    "title": "Joey",
+    "artist": "Concrete Blonde"
+  },
+  {
+    "title": "Just a Girl",
+    "artist": "No Doubt"
+  },
+  {
+    "title": "Just Like Heaven",
+    "artist": "The Cure"
+  },
+  {
+    "title": "Keep Your Hands to Yourself",
+    "artist": "The Georgia Satellites"
+  },
+  {
+    "title": "Locked Out of Heaven",
+    "artist": "Bruno Mars"
+  },
+  {
+    "title": "Lonely Boy",
+    "artist": "The Black Keys"
+  },
+  {
+    "title": "Lovefool",
+    "artist": "The Cardigans"
+  },
+  {
+    "title": "Man! I Feel Like a Woman!",
+    "artist": "Shania Twain"
+  },
+  {
+    "title": "Mary Jane's Last Dance",
+    "artist": "Tom Petty and the Heartbreakers"
+  },
+  {
+    "title": "Middle of the Road",
+    "artist": "The Pretenders"
+  },
+  {
+    "title": "My Best Friend's Girl",
+    "artist": "The Cars"
+  },
+  {
+    "title": "My Own Worst Enemy",
+    "artist": "Lit"
+  },
+  {
+    "title": "New Girl Now",
+    "artist": "Honeymoon Suite"
+  },
+  {
+    "title": "New Sensation",
+    "artist": "INXS"
+  },
+  {
+    "title": "No More Tears",
+    "artist": "Ozzy Osbourne / Anna Avery"
+  },
+  {
+    "title": "No More Words",
+    "artist": "Berlin"
+  },
+  {
+    "title": "Paris (Ooh La La)",
+    "artist": "Grace Potter and the Nocturnals"
+  },
+  {
+    "title": "Pink Pony Club",
+    "artist": "Rain Paris"
+  },
+  {
+    "title": "Roam",
+    "artist": "The B-52's"
+  },
+  {
+    "title": "Seether",
+    "artist": "Veruca Salt"
+  },
+  {
+    "title": "Separate Ways (Worlds Apart)",
+    "artist": "Journey"
+  },
+  {
+    "title": "She Sells Sanctuary",
+    "artist": "The Cult"
+  },
+  {
+    "title": "Shine",
+    "artist": "Collective Soul"
+  },
+  {
+    "title": "Sin Wagon",
+    "artist": "The Chicks"
+  },
+  {
+    "title": "Stop Draggin' My Heart Around",
+    "artist": "Stevie Nicks & Tom Petty"
+  },
+  {
+    "title": "Straight On",
+    "artist": "Heart"
+  },
+  {
+    "title": "Summer of '69",
+    "artist": "Bryan Adams"
+  },
+  {
+    "title": "T.N.T.",
+    "artist": "AC/DC"
+  },
+  {
+    "title": "Take Me to the River",
+    "artist": "Talking Heads"
+  },
+  {
+    "title": "Teenage Dirtbag",
+    "artist": "Wheatus"
+  },
+  {
+    "title": "The Warrior",
+    "artist": "Scandal"
+  },
+  {
+    "title": "Too Much Time on My Hands",
+    "artist": "Styx"
+  },
+  {
+    "title": "Voices Carry",
+    "artist": "'Til Tuesday"
+  },
+  {
+    "title": "Walk Away",
+    "artist": "Kelly Clarkson"
+  },
+  {
+    "title": "What's Up?",
+    "artist": "4 Non Blondes"
+  },
+  {
+    "title": "Who Knew",
+    "artist": "P!nk"
+  },
+  {
+    "title": "Whole Lotta Love",
+    "artist": "Led Zeppelin"
+  },
+  {
+    "title": "Words",
+    "artist": "Missing Persons"
+  },
+  {
+    "title": "You Oughta Know",
+    "artist": "Alanis Morissette"
+  },
+  {
+    "title": "Your Love",
+    "artist": "The Outfield"
+  }
+],
+  featuredTitles: [
+  "Bette Davis Eyes",
+  "Cars",
+  "Don't Change",
+  "Goodbye to You",
+  "Hey Jealousy",
+  "Joey",
+  "Lovefool",
+  "Middle of the Road",
+  "My Best Friend's Girl",
+  "New Girl Now",
+  "No More Words",
+  "Paris (Ooh La La)",
+  "Roam",
+  "Separate Ways (Worlds Apart)",
+  "She Sells Sanctuary",
+  "Sin Wagon",
+  "Straight On",
+  "The Warrior",
+  "Voices Carry",
+  "Words"
+]
 
 };
 
@@ -623,28 +874,32 @@ CONFIG.proofBullets.forEach(t => {
 
 
 /* SONGS */
-
-CONFIG.songs.forEach(s => {
-
-  const d =
-    document.createElement("div");
-
-  d.className = "song";
-
-  d.innerHTML =
-    `<b>${s.title}</b>
-     <span class="muted">
-       ${s.artist} • ${s.genre}
-     </span>`;
-
-  $("songResults").appendChild(d);
-
+function renderSongs(targetId, items) {
+  const target = $(targetId);
+  target.replaceChildren();
+  items.forEach(song => {
+    const item = document.createElement("div");
+    item.className = "song";
+    const title = document.createElement("b");
+    title.textContent = song.title;
+    const artist = document.createElement("span");
+    artist.className = "muted";
+    artist.textContent = song.artist;
+    item.append(title, artist);
+    target.appendChild(item);
+  });
+}
+const featuredSongs = CONFIG.featuredTitles.map(title => CONFIG.songs.find(song => song.title === title)).filter(Boolean);
+renderSongs("songResults", featuredSongs);
+renderSongs("fullSongResults", [...CONFIG.songs].sort((a,b) => a.title.localeCompare(b.title)));
+$("songCount").textContent = `${featuredSongs.length} featured songs from our ${CONFIG.songs.length}-song active repertoire`;
+$("fullSongsBtn").addEventListener("click", () => {
+  const panel = $("fullSongsPanel");
+  const isOpening = panel.hidden;
+  panel.hidden = !isOpening;
+  $("fullSongsBtn").setAttribute("aria-expanded", String(isOpening));
+  $("fullSongsBtn").textContent = isOpening ? "Hide Full Repertoire" : `View Full Repertoire (${CONFIG.songs.length} Songs)`;
 });
-
-
-$("songCount").textContent =
-  `${CONFIG.songs.length} songs`;
-
 
 /* BIO MODAL */
 
