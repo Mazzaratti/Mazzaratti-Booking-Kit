@@ -238,7 +238,7 @@
 
     .modal-card{
       width:min(720px,100%);
-      max-height:80vh;
+      max-height:85vh;
       overflow:auto;
       background:var(--card);
       border:1px solid var(--line);
@@ -255,7 +255,8 @@
 
     .modal-body{
       white-space:pre-wrap;
-      line-height:1.45;
+      line-height:1.65;
+      font-size:1rem;
     }
   </style>
 </head>
@@ -450,7 +451,7 @@
 
     <div class="modal-head">
 
-      <h2>Band Bio</h2>
+      <h2 id="bioHeading">About Mazzaratti</h2>
 
       <a
         href="#"
@@ -477,7 +478,7 @@ const CONFIG = {
 
   bandName: "Mazzaratti",
 
-  tagline: "Playing The Songs That People Forgot They Loved!",
+  tagline: "Helping you remember the songs you forgot you loved!",
 
   contactName: "Dave",
 
@@ -485,7 +486,25 @@ const CONFIG = {
 
   email: "mazzarattiband@gmail.com",
 
-  bio: `Mazzaratti is all about helping you remember the songs you forgot you loved! Since 2020, we’ve been delivering high-energy performances across the greater Milwaukee area.`,
+  bio: `You know that song. The one you haven't heard in years. The one that makes you stop mid-conversation and say, "Wait a minute... I LOVE this song!"
+
+That's what Mazzaratti is all about.
+
+Since 2020, Mazzaratti has been bringing a different kind of live music experience to Greater Milwaukee and Southeastern Wisconsin. Instead of reaching for the same songs you hear from every other cover band, Mazzaratti takes a slightly different road, rediscovering recognizable hits, overlooked favorites, and those musical gems that somehow slipped off everyone's radar.
+
+Fronted by a powerful female lead vocalist with an impressive vocal range and backed by seasoned musicians with decades of live performance experience, Mazzaratti brings these songs back to life with the sound, energy, and personality they deserve.
+
+Rock? Pop? Something completely unexpected? Why not? Mazzaratti doesn't spend much time worrying about genres. A great song is a great song. The band stays true to what made the originals special while adding enough of its own personality to keep things fresh.
+
+And while the musicianship is taken seriously, the band itself? Not so much. There's plenty of fun, a little playful banter, and a genuine connection between the musicians and the audience. Some songs get people moving, others get them singing, and a few simply make them stop and listen.
+
+Whether it's a neighborhood club, an outdoor festival, or a special event, Mazzaratti brings people of different generations together through the music they remember, the songs they love, and a few they may have completely forgotten.
+
+And when someone walks up after a show and says, "I can't believe you guys played that song!"...
+
+Well, that's kind of the point.
+
+MAZZARATTI. Helping you remember the songs you forgot you loved!`,
 
   proofBullets: [
     "Up to 3 hours of Classic Rock, New Wave, 80s, 90s, Country, Pop.",
@@ -659,6 +678,11 @@ $("bioModal").onclick = e => {
 
 };
 
+
+/* CLOSE BIO WITH ESCAPE */
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") $("bioModal").classList.remove("show");
+});
 
 /* PHONE FORMAT */
 
