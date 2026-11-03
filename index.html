@@ -79,18 +79,29 @@
     }
 
     /* FACEBOOK IMAGE BUTTON */
-   .facebook-btn {
-    padding: 4px 10px;
-    min-height: 48px;
-}
+    .facebook-btn { padding:4px 10px; min-height:52px; }
+    .facebook-btn img { height:42px; width:auto; max-width:100%; object-fit:contain; display:block; }
+    .action-row > .btn { flex:1 1 125px; min-height:50px; }
+    .intro { text-align:center; line-height:1.55; margin:14px auto 4px; max-width:580px; }
+    .intro strong { color:var(--text); }
+    .hero-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+    .hero-actions .btn { flex:1 1 190px; }
+    .video-wrap { width:100%; max-width:620px; }
+    .video-note { text-align:center; margin:10px 0 0; }
+    .photo-tile { aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; }
+    .photo-tile img { object-fit:contain; }
+    .photo-tile:hover { border-color:var(--accent); }
+    .lightbox { position:fixed; inset:0; background:rgba(0,0,0,.94); display:none; z-index:10001; align-items:center; justify-content:center; padding:64px 16px 36px; }
+    .lightbox.show { display:flex; }
+    .lightbox img { max-width:100%; max-height:calc(100dvh - 120px); object-fit:contain; }
+    .lightbox-close { position:absolute; top:14px; right:16px; cursor:pointer; color:#fff; }
+    .lightbox-caption { position:absolute; bottom:10px; color:#ddd; font-size:.9rem; text-align:center; }
+    .quote { border-left:3px solid var(--accent); padding:10px 14px; margin:12px 0; background:#101015; border-radius:0 8px 8px 0; }
+    .link-row { display:flex; flex-wrap:wrap; gap:10px; }
+    .link-row .btn { flex:1 1 200px; }
+    @media (max-width:600px) { .video-wrap { width:100%; max-width:none; } .photo-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 
-.facebook-btn img {
-    height: 42px;
-    width: auto;
-    max-width: 100%;
-    object-fit: contain;
-    display: block;
-}
+
     .muted{
       color:var(--muted);
       font-size:.95rem;
@@ -168,13 +179,6 @@
       background:#000;
     }
 
-    /* VIDEO SIZE ON MOBILE */
-    @media (max-width:600px){
-      .video-wrap{
-        width:85%;
-        max-width:320px;
-      }
-    }
 
     /* PHOTOS */
     .photo-grid{
@@ -279,11 +283,14 @@
     <!-- TAGLINE -->
     <div class="tag" id="tagline"></div>
 
-    <div class="row" style="margin-top:12px">
+    <p class="intro">Recognizable hits. Overlooked favorites. A few songs you haven't heard in years. <strong>Mazzaratti brings them back with powerful vocals, seasoned musicianship, and plenty of personality.</strong></p>
+    <div class="row action-row" style="margin-top:12px">
       <a class="btn primary" id="callBtn" href="#">Call</a>
       <a class="btn" id="textBtn" href="#">Text</a>
       <a class="btn" id="emailBtn" href="#">Email</a>
       <a class="btn" id="bioBtn" href="#">Band Bio</a>
+      <a class="btn" href="Mazzaratti_One_Page_EPK.pdf" download>Download EPK</a>
+      <button class="btn" type="button" id="shareBtn">Share EPK</button>
       <a class="btn" href="Assets/Stage.pdf" target="_blank">📄 Stage Plot</a>
 
       <!-- FACEBOOK -->
@@ -319,7 +326,7 @@
   <!-- PROMO VIDEO -->
   <div class="card" id="videosCard">
 
-    <h2>Promo Video</h2>
+    <h2>See Mazzaratti Live</h2>
 
     <div class="video-wrap">
 
@@ -329,6 +336,7 @@
       </video>
 
     </div>
+    <p class="muted video-note">Watch the band in action. Interested in a date? <a href="#booking" class="inline-link">Get in touch.</a></p>
 
   </div>
 
@@ -356,6 +364,25 @@
 
   </div>
 
+
+  <!-- AUDIENCE FEEDBACK -->
+  <section class="card" aria-labelledby="reactionHeading">
+    <h2 id="reactionHeading">What Audiences Say</h2>
+    <p class="muted">A few of the reactions we love hearing after a show:</p>
+    <blockquote class="quote">"I can't believe you played that song!"</blockquote>
+    <blockquote class="quote">"I forgot completely about that band and song."</blockquote>
+    <blockquote class="quote">"I hear songs from you guys I don't hear any other bands do."</blockquote>
+  </section>
+
+  <!-- UPCOMING SHOWS / PRESS -->
+  <section class="card">
+    <h2>Shows &amp; Press Materials</h2>
+    <p class="muted">Catch a live performance or share Mazzaratti with your event team.</p>
+    <div class="link-row">
+      <a class="btn" href="https://www.facebook.com/mazzarattiband" target="_blank" rel="noopener noreferrer">Facebook &amp; Show Updates</a>
+      <a class="btn" href="Mazzaratti_One_Page_EPK.pdf" download>Download One-Page EPK</a>
+    </div>
+  </section>
 
   <!-- PHOTOS -->
   <div class="card">
@@ -436,7 +463,7 @@
 
 
   <!-- REQUEST DATE -->
-  <div class="card">
+  <div class="card" id="booking">
 
     <h2>Request a Date</h2>
 
@@ -455,6 +482,13 @@
 
 </div>
 
+
+<!-- PHOTO LIGHTBOX -->
+<div class="lightbox" id="photoLightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" aria-hidden="true">
+  <button type="button" class="btn small lightbox-close" id="lightboxClose" aria-label="Close photo">Close ✕</button>
+  <img id="lightboxImage" src="" alt="">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
 
 <!-- BIO MODAL -->
 <div id="bioModal" class="modal">
@@ -938,6 +972,48 @@ $("bioModal").onclick = e => {
 document.addEventListener("keydown", e => {
   if (e.key === "Escape") $("bioModal").classList.remove("show");
 });
+
+/* SHARE EPK */
+$("shareBtn").addEventListener("click", async () => {
+  const url = window.location.href;
+  if (navigator.share) {
+    try { await navigator.share({title:"Mazzaratti Booking Kit", text:CONFIG.tagline, url}); }
+    catch (err) { if (err.name !== "AbortError") window.prompt("Copy this EPK link:", url); }
+  } else if (navigator.clipboard && window.isSecureContext) {
+    try {
+      await navigator.clipboard.writeText(url);
+      const btn = $("shareBtn");
+      btn.textContent = "Link Copied!";
+      setTimeout(() => btn.textContent = "Share EPK", 2000);
+    } catch { window.prompt("Copy this EPK link:", url); }
+  } else { window.prompt("Copy this EPK link:", url); }
+});
+
+/* PHOTO LIGHTBOX - show complete images without cropping */
+const lightbox = $("photoLightbox");
+const lightboxImage = $("lightboxImage");
+let priorFocus;
+function closeLightbox() {
+  lightbox.classList.remove("show");
+  lightbox.setAttribute("aria-hidden", "true");
+  lightboxImage.removeAttribute("src");
+  if (priorFocus) priorFocus.focus();
+}
+document.querySelectorAll(".photo-tile").forEach(link => {
+  link.addEventListener("click", e => {
+    e.preventDefault();
+    priorFocus = document.activeElement;
+    lightboxImage.src = link.getAttribute("href");
+    lightboxImage.alt = link.querySelector("img")?.alt || "Mazzaratti photo";
+    $("lightboxCaption").textContent = lightboxImage.alt;
+    lightbox.classList.add("show");
+    lightbox.setAttribute("aria-hidden", "false");
+    $("lightboxClose").focus();
+  });
+});
+$("lightboxClose").addEventListener("click", closeLightbox);
+lightbox.addEventListener("click", e => { if (e.target === lightbox) closeLightbox(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape" && lightbox.classList.contains("show")) closeLightbox(); });
 
 /* PHONE FORMAT */
 
