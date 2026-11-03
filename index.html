@@ -62,6 +62,9 @@
       border-radius:12px;
       border:1px solid var(--line);
       background:#101015;
+      color:var(--text);
+      font:inherit;
+      cursor:pointer;
       text-decoration:none;
       font-weight:600;
       min-width:120px;
@@ -78,9 +81,12 @@
       min-width:auto;
     }
 
-    /* FACEBOOK IMAGE BUTTON */
-    .facebook-btn { padding:4px 10px; min-height:52px; }
-    .facebook-btn img { height:42px; width:auto; max-width:100%; object-fit:contain; display:block; }
+    /* FACEBOOK: readable, self-contained button with no image dependency */
+    .facebook-btn { gap:8px; min-height:50px; padding:10px 12px; background:#1877f2; color:#fff; border-color:#1877f2; }
+    .facebook-btn:hover { background:#166fe5; border-color:#166fe5; }
+    .facebook-mark { display:inline-flex; align-items:center; justify-content:center; width:29px; height:29px; flex:0 0 29px; background:#fff; border-radius:7px; color:#1877f2; font-family:Arial,sans-serif; font-size:27px; font-weight:800; line-height:1; padding-top:5px; }
+    .facebook-label { white-space:nowrap; }
+    /* No blank grid slots: each real button shares the available row width */
     .action-row > .btn { flex:1 1 125px; min-height:50px; }
     .intro { text-align:center; line-height:1.55; margin:14px auto 4px; max-width:580px; }
     .intro strong { color:var(--text); }
@@ -289,25 +295,15 @@
       <a class="btn" id="textBtn" href="#">Text</a>
       <a class="btn" id="emailBtn" href="#">Email</a>
       <a class="btn" id="bioBtn" href="#">Band Bio</a>
-      <a class="btn"
-   href="./Mazzaratti_One_Page_EPK.pdf"
-   target="_blank"
-   rel="noopener noreferrer">
-    View / Download EPK
-</a>
+      <a class="btn" href="./Mazzaratti_One_Page_EPK.pdf" target="_blank" rel="noopener noreferrer">View / Download EPK</a>
       <button class="btn" type="button" id="shareBtn">Share EPK</button>
       <a class="btn" href="Assets/Stage.pdf" target="_blank">📄 Stage Plot</a>
 
-      <!-- FACEBOOK -->
-      <a
-        class="btn facebook-btn"
-        href="https://www.facebook.com/mazzarattiband"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Follow Mazzaratti on Facebook">
-        <img
-          src="Assets/FB_Logo.png"
-          alt="Follow Mazzaratti on Facebook">
+      <!-- FACEBOOK: no external graphic needed -->
+      <a class="btn facebook-btn" href="https://www.facebook.com/mazzarattiband"
+         target="_blank" rel="noopener noreferrer" aria-label="Follow Mazzaratti on Facebook">
+        <span class="facebook-mark" aria-hidden="true">f</span>
+        <span class="facebook-label">Facebook</span>
       </a>
     </div>
 
