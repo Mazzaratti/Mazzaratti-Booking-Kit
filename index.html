@@ -167,10 +167,11 @@
       display:block;
     }
 
-    /* VIDEO */
+    /* YOUTUBE VIDEO */
     .video-wrap{
-      width:60%;
-      max-width:400px;
+      width:100%;
+      max-width:620px;
+      aspect-ratio:16 / 9;
       margin:0 auto;
       border-radius:12px;
       overflow:hidden;
@@ -178,11 +179,11 @@
       background:#000;
     }
 
-    .video-wrap video{
+    .video-wrap iframe{
       width:100%;
-      height:auto;
+      height:100%;
       display:block;
-      background:#000;
+      border:0;
     }
 
 
@@ -330,12 +331,14 @@
     <h2>See Mazzaratti Live</h2>
 
     <div class="video-wrap">
-
-      <video controls playsinline preload="metadata">
-        <source src="Assets/promo-1.mp4" type="video/mp4">
-        Your browser does not support HTML5 video.
-      </video>
-
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/5NELt4Ls958?rel=0"
+        title="Mazzaratti Live Performance"
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
     </div>
     <p class="muted video-note">Watch the band in action. Interested in a date? <a href="#booking" class="inline-link">Get in touch.</a></p>
 
